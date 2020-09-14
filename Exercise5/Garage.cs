@@ -5,23 +5,26 @@ using System.Text;
 
 namespace Exercise5
 {
-    public class Garage<T> : IEnumerable<T> where T : Vehicle
+    public class Garage<T> : IEnumerable where T : Vehicle
     {
         private Vehicle[] garage;
+        private int nextFreeSpot;
 
         public Garage(int sizeOfGarage)
         {
             garage = new Vehicle[sizeOfGarage];
+            nextFreeSpot = 0;
         }
 
-        public IEnumerator<T> GetEnumerator()
+
+        public IEnumerator GetEnumerator()
         {
-            throw new NotImplementedException();
+            foreach (var item in garage)
+            {
+                yield return item;
+            }
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
+        public bool ParkingSpotAvailable() => nextFreeSpot < garage.Length;
     }
 }
