@@ -14,5 +14,10 @@ namespace Exercise5
         {
             FuelType = fuelType;
         }
+
+        public override string ToString()
+        {
+            return $"{base.ToString()} Fuel type: {FuelType}";
+        }
     }
 }

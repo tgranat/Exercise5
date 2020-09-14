@@ -49,7 +49,7 @@ namespace Exercise5.Tests
         public void Garage_AvailableSpot_Success()
         {
             Garage<Vehicle> vehicleGarage = new Garage<Vehicle>(10);
-            bool available = vehicleGarage.ParkingSpotAvailable();
+            bool available = vehicleGarage.IsParkingSpotAvailable();
             Assert.IsTrue(available);
         }
 
@@ -57,16 +57,39 @@ namespace Exercise5.Tests
         public void Garage_AvailableSpot_NotAvailable()
         {
             Garage<Vehicle> vehicleGarage = new Garage<Vehicle>(0);
-            bool available = vehicleGarage.ParkingSpotAvailable();
+            bool available = vehicleGarage.IsParkingSpotAvailable();
             Assert.IsFalse(available);
         }
-        //[TestMethod]
-        //public void Garage_AddCarWithIndex_Success()
-        //{
-        //    Garage<Vehicle> vehicleGarage = new Garage<Vehicle>(10);
-        //    Car car = new Car("ABC123", "Blue", 4, FuelType.Gasoline);
+        [TestMethod]
+        public void Garage_AddCarToVehicleGarage_Success()
+        {
+            Garage<Vehicle> vehicleGarage = new Garage<Vehicle>(10);
+            Car car = new Car("ABC123", "Blue", 4, FuelType.Gasoline);
+            Assert.IsTrue(vehicleGarage.Add(car));
+        }
+        [TestMethod]
+        public void Garage_AddCarToVehicleGarage_FailsGarageFull()
+        {
+            Garage<Vehicle> vehicleGarage = new Garage<Vehicle>(1);
+            Car car1 = new Car("ABC123", "Blue", 4, FuelType.Gasoline);
+            Car car2 = new Car("ABC456", "Green", 4, FuelType.Gasoline);
+            vehicleGarage.Add(car1);
+            Assert.IsFalse(vehicleGarage.Add(car2));
 
-        //}
+        }
+
+        [TestMethod]
+        public void Garage_GetCarFromVehicleGarageWithIndex_Success()
+        {
+            Garage<Vehicle> vehicleGarage = new Garage<Vehicle>(10)
+            {
+                new Car("ABC123", "Blue", 4, FuelType.Gasoline)
+            };
+
+            Car fetchedCar = vehicleGarage[0] as Car;
+            Assert.AreEqual(fetchedCar.RegNumber, "ABC123");
+        }
+
 
         //[TestMethod]
         //public void Garage_FetchWithIndex_Success()

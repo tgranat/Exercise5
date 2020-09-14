@@ -27,6 +27,26 @@ namespace Exercise5
             // en loop och frågar dess specifika frågor mha IUI.GetInput och IUI.PreintMessage (om fel tex).
 
 
+            Garage<Vehicle> vehicleGarage = new Garage<Vehicle>(10)
+            {
+                new Car("ABC123", "Blue", 4, FuelType.Gasoline),
+                new Car("CDE123", "Blue", 4, FuelType.Gasoline),
+                new Car("FGH123", "Blue", 4, FuelType.Gasoline)
+            };
+
+            foreach (var item in vehicleGarage)
+            {
+                Console.WriteLine(item?.ToString());
+            }
+
+            for (int i = 0; i < vehicleGarage.Capacity; i++)
+            {
+                if (vehicleGarage[i] == null)
+                    Console.WriteLine($"{i}.\tFree space");
+                else
+                    Console.WriteLine($"{i}.\t{vehicleGarage[i]}");
+            }
+
         }
     }
 }

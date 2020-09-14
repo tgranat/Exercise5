@@ -12,9 +12,14 @@ namespace Exercise5
 
         public Vehicle(string regNumber, string color, int numberOfWheels)
         {
-            RegNumber = regNumber;
+            RegNumber = regNumber;    // regnumber is unique, check that. Do it in Garage?
             Color = color;
             NumberOfWheels = numberOfWheels;
+        }
+
+        public override string ToString()
+        {
+            return $"Reg number: {RegNumber} Color: {Color} Wheels: {NumberOfWheels}";
         }
     }
 }
