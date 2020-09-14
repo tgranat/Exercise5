@@ -67,6 +67,16 @@ namespace Exercise5.Tests
             Car car = new Car("ABC123", "Blue", 4, FuelType.Gasoline);
             Assert.IsTrue(vehicleGarage.Add(car));
         }
+
+        [TestMethod]
+        public void Garage_AddCarToCarGarage_Success()
+        {
+            Garage<Car> carGarage = new Garage<Car>(10);
+            Car car = new Car("ABC123", "Blue", 4, FuelType.Gasoline);
+            Assert.IsTrue(carGarage.Add(car));
+        }
+
+
         [TestMethod]
         public void Garage_AddCarToVehicleGarage_FailsGarageFull()
         {
@@ -90,8 +100,7 @@ namespace Exercise5.Tests
             Assert.AreEqual(fetchedCar.RegNumber, "ABC123");
         }
 
-
-        //[TestMethod]
+         //[TestMethod]
         //public void Garage_FetchWithIndex_Success()
         //{
 
