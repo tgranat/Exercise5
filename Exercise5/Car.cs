@@ -10,7 +10,7 @@ namespace Exercise5
 
 
         public Car(string regNumber, string color, int numberOfWheels, FuelType fuelType)
-            : base(regNumber, color, numberOfWheels)
+            : base(regNumber, VehicleType.Car, color, numberOfWheels)
         {
             FuelType = fuelType;
         }

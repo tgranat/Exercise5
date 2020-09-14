@@ -49,7 +49,7 @@ namespace Exercise5.Tests
         public void Garage_AvailableSpot_Success()
         {
             Garage<Vehicle> vehicleGarage = new Garage<Vehicle>(10);
-            bool available = vehicleGarage.IsParkingSpotAvailable();
+            bool available = vehicleGarage.IsParkingSpotAvailable;
             Assert.IsTrue(available);
         }
 
@@ -57,7 +57,7 @@ namespace Exercise5.Tests
         public void Garage_AvailableSpot_NotAvailable()
         {
             Garage<Vehicle> vehicleGarage = new Garage<Vehicle>(0);
-            bool available = vehicleGarage.IsParkingSpotAvailable();
+            bool available = vehicleGarage.IsParkingSpotAvailable;
             Assert.IsFalse(available);
         }
         [TestMethod]

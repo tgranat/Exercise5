@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Exercise5
@@ -32,9 +33,31 @@ namespace Exercise5
 
         public int Capacity => garage.Length;
 
-        public bool IsParkingSpotAvailable() => NextAvailableSpot() < Capacity;
+        public bool IsParkingSpotAvailable => NextAvailableSpot() < Capacity;
 
-        // Scan garage for null spot = available parking lot
+
+        public bool Add(Vehicle vehicle)
+        {
+            // TODO: check regnumber here? Own method?
+            if (IsParkingSpotAvailable)
+            {
+                garage[NextAvailableSpot()] = vehicle;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+      
+
+        // TODO locate vehicle from en egenskap eller flera och på fordonstyp
+
+        // TODO remove vehicle on regnumber
+        // TODO find vehicle on regnumber
+
+        // Scan garage for null = available parking lot
         // If none available it returns garage.Lenght
         private int NextAvailableSpot()
         {
@@ -46,21 +69,5 @@ namespace Exercise5
             // No parking space available
             return Capacity;
         }
-
-        public bool Add(Vehicle vehicle)
-        {
-            // TODO: check regnumber here? Own method?
-            if (IsParkingSpotAvailable())
-            {
-                garage[NextAvailableSpot()] = vehicle;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        // TODO remove vehicle on regnumber
     }
 }

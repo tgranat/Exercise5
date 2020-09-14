@@ -10,7 +10,7 @@ namespace Exercise5
 
 
         public Bus(string regNumber, string color, int numberOfWheels, int seats)
-            : base(regNumber, color, numberOfWheels)
+            : base(regNumber, VehicleType.Bus, color, numberOfWheels)
         {
             Seats = seats;
         }
