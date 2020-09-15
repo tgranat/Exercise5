@@ -8,19 +8,19 @@ namespace Exercise5
 {
     // Stores a generic collection of type Vehicle or its subclasses.
 
-    public class Garage<T> : IEnumerable where T : Vehicle
+    public class Garage<T> : IEnumerable where T : IVehicle
     {
-        private Vehicle[] garage;
+        private IVehicle[] garage;
  
         // Create a Garage with a specified number of parking spaces.
         // Empty parking spaces are null
         public Garage(int sizeOfGarage)
         {
-            garage = new Vehicle[sizeOfGarage];
+            garage = new IVehicle[sizeOfGarage];
         }
 
         // Declare index
-        public Vehicle this[int index] => garage[index];
+        public IVehicle this[int index] => garage[index];
 
         public IEnumerator GetEnumerator()
         {
@@ -35,7 +35,7 @@ namespace Exercise5
         // Test if there is an available parking place somewhere in the array
         public bool IsParkingSpotAvailable => NextAvailableSpot() < Capacity;
 
-        public bool Add(Vehicle vehicle)
+        public bool Add(IVehicle vehicle)
         {
             // TODO: check regnumber here? Yes, dont store if already exist
             if (IsParkingSpotAvailable)
@@ -50,7 +50,7 @@ namespace Exercise5
         }
 
         // Get a Vehicle based on reg number. Returns null if not found
-        public Vehicle GetVehicle(string regNumber)
+        public IVehicle GetVehicle(string regNumber)
         {
             var vehicle = garage
                 .Where(v => v?.RegNumber == regNumber.ToUpper())
@@ -72,7 +72,7 @@ namespace Exercise5
         // TODO lista fordonstyp och hur många av varje
 
         // List Vehicle with certain color and number of wheels
-        public List<Vehicle> GetVehicles(string color, int wheels)
+        public List<IVehicle> GetVehicles(string color, int wheels)
         {
             var result = garage
                 .Where(v => v?.Color == color.ToUpper())
@@ -81,7 +81,7 @@ namespace Exercise5
             return result;
         }
         // List vehicles of certain color
-        public List<Vehicle> GetVehicles(string color)
+        public List<IVehicle> GetVehicles(string color)
         {
             var result = garage
                 .Where(v => v?.Color == color.ToUpper())
@@ -89,10 +89,10 @@ namespace Exercise5
             return result;
         }
         // List vehicles of certain type
-        public List<Vehicle> GetVehicles(VehicleType type)
+        public List<IVehicle> GetVehicles(VehicleType type)
         {
             var result = garage
-                .Where(v => v?.VehicleType == type)
+                .Where(v => v?.Type == type)
                 .ToList();
             return result;
         }

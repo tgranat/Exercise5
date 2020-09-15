@@ -103,37 +103,37 @@ namespace Exercise5.Tests
         [TestMethod]
         public void Garage_GetVehicleOnRegnumber_Found()
         {
-            Garage<Vehicle> vehicleGarage = PopulateGarage();
-            Vehicle v = vehicleGarage.GetVehicle("Cde123");
+            Garage<IVehicle> vehicleGarage = CreateAndPopulateGarage();
+            IVehicle v = vehicleGarage.GetVehicle("Cde123");
             Assert.AreEqual("CDE123", v.RegNumber);  // Reg number stored uppercase
         }
         [TestMethod]
         public void Garage_GetVehicleOnRegnumber_NotFound()
         {
-            Garage<Vehicle> vehicleGarage = PopulateGarage();
-            Vehicle v = vehicleGarage.GetVehicle("123456");
+            Garage<IVehicle> vehicleGarage = CreateAndPopulateGarage();
+            IVehicle v = vehicleGarage.GetVehicle("123456");
             Assert.IsNull(v);
         }
 
         [TestMethod]
         public void Garage_GetVehiclesOnColor_Found()
         {
-            Garage<Vehicle> vehicleGarage = PopulateGarage();
-            List<Vehicle> v = vehicleGarage.GetVehicles("Blue");
+            Garage<IVehicle> vehicleGarage = CreateAndPopulateGarage();
+            List<IVehicle> v = vehicleGarage.GetVehicles("Blue");
             Assert.AreEqual(2, v.Count);
         }
 
         [TestMethod]
         public void Garage_GetVehiclesOnType_Found()
         {
-            Garage<Vehicle> vehicleGarage = PopulateGarage();
-            List<Vehicle> v = vehicleGarage.GetVehicles(VehicleType.Car);
+            Garage<IVehicle> vehicleGarage = CreateAndPopulateGarage();
+            List<IVehicle> v = vehicleGarage.GetVehicles(VehicleType.Car);
             Assert.AreEqual(3, v.Count);
         }
 
-        private static Garage<Vehicle> PopulateGarage()
+        private static Garage<IVehicle> CreateAndPopulateGarage()
         {
-            return new Garage<Vehicle>(10)
+            return new Garage<IVehicle>(10)
             {
                 new Car("ABC123", "Blue", 4, FuelType.Gasoline),
                 new Car("cde123", "Green", 4, FuelType.Gasoline),
