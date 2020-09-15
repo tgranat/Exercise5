@@ -11,16 +11,15 @@ namespace Exercise5
     public class Garage<T> : IEnumerable where T : Vehicle
     {
         private Vehicle[] garage;
-        //private int nextFreeSpot;  // TODO fix this, there might be free spaces in the middle of the array
-
-        // Creating a Garage with a specified number of parking spaces.
+ 
+        // Create a Garage with a specified number of parking spaces.
         // Empty parking spaces are null
         public Garage(int sizeOfGarage)
         {
             garage = new Vehicle[sizeOfGarage];
-            //nextFreeSpot = 0;
         }
 
+        // Declare index
         public Vehicle this[int index] => garage[index];
 
         public IEnumerator GetEnumerator()
@@ -33,12 +32,12 @@ namespace Exercise5
 
         public int Capacity => garage.Length;
 
+        // Test if there is an available parking place somewhere in the array
         public bool IsParkingSpotAvailable => NextAvailableSpot() < Capacity;
-
 
         public bool Add(Vehicle vehicle)
         {
-            // TODO: check regnumber here? Own method?
+            // TODO: check regnumber here? 
             if (IsParkingSpotAvailable)
             {
                 garage[NextAvailableSpot()] = vehicle;
@@ -50,7 +49,16 @@ namespace Exercise5
             }
         }
 
-      
+        // Get a Vehicle based on reg number. Returns null if not found
+        public Vehicle GetVehicle(string regNumber)
+        {
+            var vehicle = garage
+                .Where(v => v?.RegNumber == regNumber.ToUpper())
+                .FirstOrDefault();
+            return vehicle;
+        }
+
+
 
         // TODO locate vehicle from en egenskap eller flera och på fordonstyp
 
@@ -58,7 +66,7 @@ namespace Exercise5
         // TODO find vehicle on regnumber
 
         // Scan garage for null = available parking lot
-        // If none available it returns garage.Lenght
+        // If none available it returns capacity of garage
         private int NextAvailableSpot()
         {
             for (int i = 0; i < garage.Length; i++)

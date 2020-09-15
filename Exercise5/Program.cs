@@ -47,6 +47,12 @@ namespace Exercise5
                     Console.WriteLine($"{i}.\t{vehicleGarage[i]}");
             }
 
+            var a1 = vehicleGarage.GetVehicle("abc123");
+            Console.WriteLine(a1);
+            var a2 = vehicleGarage.GetVehicle("vdskj");
+            if (a2 == null) Console.WriteLine("NULL!!!");
+
+
         }
     }
 }

@@ -97,10 +97,39 @@ namespace Exercise5.Tests
             };
 
             Car fetchedCar = vehicleGarage[0] as Car;
-            Assert.AreEqual(fetchedCar.RegNumber, "ABC123");
+            Assert.AreEqual("ABC123", fetchedCar.RegNumber);
         }
 
-         //[TestMethod]
+        [TestMethod]
+        public void Garage_GetVehicleOnRegnumber_Found()
+        {
+            Garage<Vehicle> vehicleGarage = new Garage<Vehicle>(10)
+            {
+                new Car("ABC123", "Blue", 4, FuelType.Gasoline),
+                new Car("cde123", "Blue", 4, FuelType.Gasoline),
+                new Car("xYz123", "Blue", 4, FuelType.Gasoline)
+            };
+
+            Vehicle v = vehicleGarage.GetVehicle("Cde123");
+            Assert.AreEqual("CDE123", v.RegNumber);  // Reg number stored uppercase
+        }
+        [TestMethod]
+        public void Garage_GetVehicleOnRegnumber_NotFound()
+        {
+            Garage<Vehicle> vehicleGarage = new Garage<Vehicle>(10)
+            {
+                new Car("ABC123", "Blue", 4, FuelType.Gasoline),
+                new Car("cde123", "Blue", 4, FuelType.Gasoline),
+                new Car("xYz123", "Blue", 4, FuelType.Gasoline)
+            };
+
+            Vehicle v = vehicleGarage.GetVehicle("123456");
+            Assert.IsNull(v);
+        }
+
+
+
+        //[TestMethod]
         //public void Garage_FetchWithIndex_Success()
         //{
 
