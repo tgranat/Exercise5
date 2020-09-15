@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Exercise5
 {
+    // TODO extract interface
     public abstract class Vehicle
     {
         private string regNumber;
