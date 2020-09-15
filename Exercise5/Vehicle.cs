@@ -30,7 +30,7 @@ namespace Exercise5
 
         public override string ToString()
         {
-            return $"Reg number: {RegNumber} Color: {Color} Wheels: {NumberOfWheels}";
+            return $"Reg number: {RegNumber} Type: {Type} Color: {Color} Wheels: {NumberOfWheels}";
         }
 
 
