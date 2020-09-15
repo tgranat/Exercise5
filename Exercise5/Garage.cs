@@ -32,15 +32,13 @@ namespace Exercise5
 
         public int Capacity => garage.Length;
 
-        // Test if there is an available parking place somewhere in the array
-        public bool IsParkingSpotAvailable => NextAvailableSpot() < Capacity;
-
         public bool Add(IVehicle vehicle)
         {
+            int spot = Array.FindIndex(garage, v => v == null);
             // TODO: check regnumber here? Yes, dont store if already exist
-            if (IsParkingSpotAvailable)
+            if (spot >= 0)
             {
-                garage[NextAvailableSpot()] = vehicle;
+                garage[spot] = vehicle;
                 return true;
             }
             else
@@ -63,7 +61,7 @@ namespace Exercise5
         // Return false if nothing removed
         public bool RemoveVehicle(string regNumber)
         {
-            int index = Array.FindIndex(garage, v => v?.RegNumber == regNumber.ToUpper());
+            int index = Array.FindIndex<IVehicle>(garage, v => v?.RegNumber == regNumber.ToUpper());
             if (index < 0) return false;
             garage[index] = null;
             return true;
@@ -95,19 +93,6 @@ namespace Exercise5
                 .Where(v => v?.Type == type)
                 .ToList();
             return result;
-        }
-
-         // Scan garage for null = available parking lot
-        // If none available it returns capacity of garage
-        private int NextAvailableSpot()
-        {
-            for (int i = 0; i < garage.Length; i++)
-            {
-                if (garage[i] == null)
-                    return i;
-            }
-            // No parking space available
-            return Capacity;
         }
     }
 }

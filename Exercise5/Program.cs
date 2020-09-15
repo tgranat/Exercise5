@@ -31,7 +31,8 @@ namespace Exercise5
             {
                 new Car("ABC123", "Blue", 4, FuelType.Gasoline),
                 new Car("CDE123", "Green", 3, FuelType.Gasoline),
-                new Car("FGH123", "Blue", 4, FuelType.Gasoline)
+                new Car("FGH123", "Blue", 4, FuelType.Gasoline),
+                new Bus("sdfsdf", "Lilac", 6, 40)
             };
 
             // Lista samtliga fordon (skriv inte ut tomma platser)
@@ -40,7 +41,7 @@ namespace Exercise5
                 if (item != null) Console.WriteLine(item.ToString());
             }
 
-            //vehicleGarage.RemoveVehicle("cde123");
+            vehicleGarage.RemoveVehicle("cde123");
 
             for (int i = 0; i < vehicleGarage.Capacity; i++)
             {
@@ -49,7 +50,15 @@ namespace Exercise5
                 else
                     Console.WriteLine($"{i}.\t{vehicleGarage[i]}");
             }
+            vehicleGarage.Add(new Bus("BBB333", "Yellow", 6, 24));
 
+            for (int i = 0; i < vehicleGarage.Capacity; i++)
+            {
+                if (vehicleGarage[i] == null)
+                    Console.WriteLine($"{i}.\tFree space");
+                else
+                    Console.WriteLine($"{i}.\t{vehicleGarage[i]}");
+            }
             //vehicleGarage.GetAllVehicles().ForEach(v => Console.WriteLine(v));
 
 

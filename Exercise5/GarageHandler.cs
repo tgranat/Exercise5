@@ -9,10 +9,14 @@ namespace Exercise5
     public class GarageHandler
     {
         // create Garage (factory)
+        // Garage garage = GarageHandler.CreateGarage(size);
+        // GarageHandler.PopulateWithTestData(garage);
 
         // implement functionality for UI:
-        // AddVehicle(IGarage garage, IVehicle vehicle)  ...
+        // 
 
-        // IVehicle car = Handler.CreateCar(.....);  ??
+        // Handler.CreateCar(garage, dfdf,dfdff,dfd.....);  ??
+
+        // List<IVehicle> GarageHandler.GetAllVehicles()....
     }
 }
