@@ -65,7 +65,7 @@ namespace Exercise5
             return true;
         }
 
-        // Return a List of tuples containin VehicleType and number of vehicles per type
+        // Return a List of tuples containing VehicleType and number of vehicles per type
         public List<Tuple<VehicleType, int>> NumberOfVehicles()
         {
             List<Tuple<VehicleType, int>> result = new List<Tuple<VehicleType, int>>();
@@ -78,6 +78,17 @@ namespace Exercise5
                     result.Add(Tuple.Create((VehicleType)item.Key, item.Count()));
                 }
             }
+            return result;
+        }
+
+        // List Vehicle with certain type, color and number of wheels
+        public List<IVehicle> GetVehicles(VehicleType type, string color, int wheels)
+        {
+            var result = garage
+                .Where(v => v?.Type == type)
+                .Where(v => v?.Color == color.ToUpper())
+                .Where(v => v?.NumberOfWheels == wheels)
+                .ToList();
             return result;
         }
 

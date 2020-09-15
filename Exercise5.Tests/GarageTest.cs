@@ -117,6 +117,14 @@ namespace Exercise5.Tests
             Assert.AreEqual(3, v.Count);
         }
 
+        [TestMethod]
+        public void Garage_GetVehiclesOnTypeColorWheels_Found()
+        {
+            Garage<IVehicle> vehicleGarage = CreateAndPopulateGarage();
+            List<IVehicle> v = vehicleGarage.GetVehicles(VehicleType.Car, "Blue", 4);
+            Assert.AreEqual(2, v.Count);
+        }
+
         private static Garage<IVehicle> CreateAndPopulateGarage()
         {
             return new Garage<IVehicle>(10)
