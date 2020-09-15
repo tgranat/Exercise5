@@ -72,7 +72,7 @@ namespace Exercise5
         // TODO lista fordonstyp och hur många av varje
 
         // List Vehicle with certain color and number of wheels
-        // TODO Add search combinations.
+        // TODO Add search combinations: search on color, search on VehicleType
         public List<Vehicle> GetVehicles(string color, int wheels)
         {
             var result = garage
@@ -81,6 +81,22 @@ namespace Exercise5
                 .ToList();
             return result;
         }
+
+        public List<Vehicle> GetVehicles(string color)
+        {
+            var result = garage
+                .Where(v => v?.Color == color.ToUpper())
+                .ToList();
+            return result;
+        }
+        public List<Vehicle> GetVehicles(VehicleType type)
+        {
+            var result = garage
+                .Where(v => v?.VehicleType == type)
+                .ToList();
+            return result;
+        }
+
 
         // TODO locate vehicle from en egenskap eller flera och på fordonstyp
 
