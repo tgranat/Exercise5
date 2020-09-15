@@ -69,12 +69,20 @@ namespace Exercise5
             return true;
         }
 
-        // Onödig:
-        // public List<Vehicle> GetAllVehicles() => garage.ToList();
+        // TODO lista fordonstyp och hur många av varje
+
+        // List Vehicle with certain color and number of wheels
+        // TODO Add search combinations.
+        public List<Vehicle> GetVehicles(string color, int wheels)
+        {
+            var result = garage
+                .Where(v => v?.Color == color.ToUpper())
+                .Where(v => v?.NumberOfWheels == wheels)
+                .ToList();
+            return result;
+        }
 
         // TODO locate vehicle from en egenskap eller flera och på fordonstyp
-
-        // TODO remove vehicle on regnumber
 
         // Scan garage for null = available parking lot
         // If none available it returns capacity of garage

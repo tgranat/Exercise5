@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 
 namespace Exercise5
@@ -8,6 +9,7 @@ namespace Exercise5
     public abstract class Vehicle
     {
         private string regNumber;
+        private string color;
 
         // Alpabetic characters in RegNumber is always stored in uppercase
         public string RegNumber
@@ -16,8 +18,15 @@ namespace Exercise5
             set { regNumber = value.ToUpper(); }
         }
 
+        // Alpabetic characters in Color is always stored in uppercase.
+        // Need to spell it correctly
+        public string Color
+        {
+            get { return color; }
+            set { color = value.ToUpper(); }
+        }   
         public VehicleType VehicleType { get; set; }
-        public string Color { get; set; }
+       
         public int NumberOfWheels { get; set; }
 
         public Vehicle(string regNumber, VehicleType type, string color, int numberOfWheels)

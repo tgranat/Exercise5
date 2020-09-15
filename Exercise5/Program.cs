@@ -30,14 +30,16 @@ namespace Exercise5
             Garage<Vehicle> vehicleGarage = new Garage<Vehicle>(10)
             {
                 new Car("ABC123", "Blue", 4, FuelType.Gasoline),
-                new Car("CDE123", "Blue", 4, FuelType.Gasoline),
+                new Car("CDE123", "Green", 3, FuelType.Gasoline),
                 new Car("FGH123", "Blue", 4, FuelType.Gasoline)
             };
 
-            //foreach (var item in vehicleGarage)
-            //{
-            //    Console.WriteLine(item?.ToString());
-            //}
+            // Lista samtliga fordon (skriv inte ut tomma platser)
+            foreach (var item in vehicleGarage)
+            {
+                if (item != null) Console.WriteLine(item.ToString());
+            }
+
             //vehicleGarage.RemoveVehicle("cde123");
 
             for (int i = 0; i < vehicleGarage.Capacity; i++)
@@ -50,8 +52,9 @@ namespace Exercise5
 
             //vehicleGarage.GetAllVehicles().ForEach(v => Console.WriteLine(v));
 
-            
 
+            var x = vehicleGarage.GetVehicles("Blue", 4);
+            x.ForEach(v => Console.WriteLine(v));
 
         }
     }
