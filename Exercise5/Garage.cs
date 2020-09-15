@@ -65,7 +65,21 @@ namespace Exercise5
             return true;
         }
 
-        // TODO lista fordonstyp och hur många av varje
+        // Return a List of tuples containin VehicleType and number of vehicles per type
+        public List<Tuple<VehicleType, int>> NumberOfVehicles()
+        {
+            List<Tuple<VehicleType, int>> result = new List<Tuple<VehicleType, int>>();
+            var group = garage.GroupBy(v => v?.Type);  // returns a IEnumerable of IGrouping
+            Console.WriteLine(group.Count());
+            foreach (var item in group)
+            {
+                if (item != null && item.Key != null)
+                {
+                    result.Add(Tuple.Create((VehicleType)item.Key, item.Count()));
+                }
+            }
+            return result;
+        }
 
         // List Vehicle with certain color and number of wheels
         public List<IVehicle> GetVehicles(string color, int wheels)

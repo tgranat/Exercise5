@@ -15,29 +15,51 @@ namespace Exercise5
 
         public void Run()
         {
-            // create IUI
             Initialize();
-            Menu();
+            MainMenu();
         }
 
         private void Initialize()
         {
-            ui = new UI();  
+            ui = new UI();  // TODO will be interface
             handler = new GarageHandler();
-            garage = handler.CreateGarage(10);  // TODO size is hardcoded
-            handler.PopulateWithTestData(garage);
+            //garage = handler.CreateGarage(10);  // TODO size is hardcoded
+            //handler.PopulateWithTestData(garage);
         }
-        private void Menu()
+        private void MainMenu()
         {
             ui.PrintLine("Garage 1.0");
             do
             {
-                ui.PrintLine("1 - Create a garage");
+                ui.PrintLine("1 - Create new garage");
                 ui.PrintLine("0 - Quit");
                 int choice = ui.ReadInt();
                 // TODO switch
+                switch (choice)
+                {
+                    case 1:
+                        CreateGarage();
+                        break;
+                    case 0:
+                        ui.PrintLine("Exiting.");
+                        return;
+                        
+                    default:
+                        ui.PrintLine("Please enter a valid input.");
+                        break;
+                }
             }
             while (true);
+        }
+
+        private void CreateGarage()
+        {
+            int capacity = ui.ReadInt("Enter capacity of the garage: ");
+            garage = handler.CreateGarage(capacity);
+            ui.PrintLine($"New garage created with capacity: {capacity}");
+
+            //handler.PopulateWithTestData(garage);
+            //garage.NumberOfVehicles().ForEach(x => Console.WriteLine(x));
         }
 
         // TODO Create garage menu
