@@ -26,14 +26,10 @@ namespace Exercise5
             // en vehicle subklass måste få IUI så den kan ställa rätt frågor. vehicle subklass har
             // en loop och frågar dess specifika frågor mha IUI.GetInput och IUI.PreintMessage (om fel tex).
 
-
-            Garage<Vehicle> vehicleGarage = new Garage<Vehicle>(10)
-            {
-                new Car("ABC123", "Blue", 4, FuelType.Gasoline),
-                new Car("CDE123", "Green", 3, FuelType.Gasoline),
-                new Car("FGH123", "Blue", 4, FuelType.Gasoline),
-                new Bus("sdfsdf", "Lilac", 6, 40)
-            };
+            GarageHandler h = new GarageHandler();
+            Garage<IVehicle> vehicleGarage = h.CreateGarage(10);
+            h.PopulateWithTestData(vehicleGarage);
+            
 
             // Lista samtliga fordon (skriv inte ut tomma platser)
             foreach (var item in vehicleGarage)
