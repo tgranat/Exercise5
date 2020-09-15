@@ -37,7 +37,7 @@ namespace Exercise5
 
         public bool Add(Vehicle vehicle)
         {
-            // TODO: check regnumber here? 
+            // TODO: check regnumber here? Yes, dont store 
             if (IsParkingSpotAvailable)
             {
                 garage[NextAvailableSpot()] = vehicle;
@@ -58,12 +58,23 @@ namespace Exercise5
             return vehicle;
         }
 
+        // Remove a vehicle based on reg number.
+        // Lookup index and set element to null
+        // Return false if nothing removed
+        public bool RemoveVehicle(string regNumber)
+        {
+            int index = Array.FindIndex(garage, v => v?.RegNumber == regNumber.ToUpper());
+            if (index < 0) return false;
+            garage[index] = null;
+            return true;
+        }
 
+        // Onödig:
+        // public List<Vehicle> GetAllVehicles() => garage.ToList();
 
         // TODO locate vehicle from en egenskap eller flera och på fordonstyp
 
         // TODO remove vehicle on regnumber
-        // TODO find vehicle on regnumber
 
         // Scan garage for null = available parking lot
         // If none available it returns capacity of garage

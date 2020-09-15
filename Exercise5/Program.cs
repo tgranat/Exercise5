@@ -34,10 +34,11 @@ namespace Exercise5
                 new Car("FGH123", "Blue", 4, FuelType.Gasoline)
             };
 
-            foreach (var item in vehicleGarage)
-            {
-                Console.WriteLine(item?.ToString());
-            }
+            //foreach (var item in vehicleGarage)
+            //{
+            //    Console.WriteLine(item?.ToString());
+            //}
+            //vehicleGarage.RemoveVehicle("cde123");
 
             for (int i = 0; i < vehicleGarage.Capacity; i++)
             {
@@ -47,10 +48,9 @@ namespace Exercise5
                     Console.WriteLine($"{i}.\t{vehicleGarage[i]}");
             }
 
-            var a1 = vehicleGarage.GetVehicle("abc123");
-            Console.WriteLine(a1);
-            var a2 = vehicleGarage.GetVehicle("vdskj");
-            if (a2 == null) Console.WriteLine("NULL!!!");
+            //vehicleGarage.GetAllVehicles().ForEach(v => Console.WriteLine(v));
+
+            
 
 
         }

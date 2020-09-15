@@ -127,6 +127,38 @@ namespace Exercise5.Tests
             Assert.IsNull(v);
         }
 
+        [TestMethod]
+        public void Garage_RemoveVehicleOnRegnumber_Successful()
+        {
+            Garage<Vehicle> vehicleGarage = new Garage<Vehicle>(10)
+            {
+                new Car("ABC123", "Blue", 4, FuelType.Gasoline),
+                new Car("cde123", "Blue", 4, FuelType.Gasoline),
+                new Car("xYz123", "Blue", 4, FuelType.Gasoline)
+            };
+            //Verify that spot is occupied
+            Assert.IsNotNull(vehicleGarage[0]);
+            Assert.IsTrue(vehicleGarage.RemoveVehicle("ABC123"));
+            // Verify that spot is empty
+            Assert.IsNull(vehicleGarage[0]);         
+        }
+        [TestMethod]
+        public void Garage_RemoveVehicleOnRegnumber_Notfound()
+        {
+            Garage<Vehicle> vehicleGarage = new Garage<Vehicle>(10)
+            {
+                new Car("ABC123", "Blue", 4, FuelType.Gasoline),
+                new Car("cde123", "Blue", 4, FuelType.Gasoline)
+            };
+            //Verify that spots are occupied
+            Assert.IsNotNull(vehicleGarage[0]);
+            Assert.IsNotNull(vehicleGarage[1]);
+            Assert.IsFalse(vehicleGarage.RemoveVehicle("ZZZZZZ"));
+            // Verify that spots still are occupied
+            Assert.IsNotNull(vehicleGarage[0]);
+            Assert.IsNotNull(vehicleGarage[1]);
+        }
+
 
 
         //[TestMethod]
