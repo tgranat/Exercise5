@@ -5,8 +5,6 @@ using System.Text;
 
 namespace Exercise5
 {
-    // TODO extract interface
-
     public abstract class Vehicle : IVehicle
     {
 
@@ -20,10 +18,10 @@ namespace Exercise5
         public Vehicle(string regNumber, VehicleType type, string color, int numberOfWheels)
         {
             // Alpabetic characters in RegNumber is always stored in uppercase
-            RegNumber = regNumber.ToUpper();    // TODO regnumber should be unique but should  tested when added to Garage
+            RegNumber = regNumber.ToUpper(); 
             Type = type;
-            // Alpabetic characters in Color is always stored in uppercase.
-            // Need to spell it correctly
+            // Alphabetic characters in Color is always stored in uppercase.
+            // Need to spell color correctly
             Color = color.ToUpper();
             NumberOfWheels = numberOfWheels;
         }

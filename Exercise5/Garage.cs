@@ -32,19 +32,17 @@ namespace Exercise5
 
         public int Capacity => garage.Length;
 
+        public int GetFreeSpotIndex => Array.FindIndex(garage, v => v == null);
+
+        // Add IVehicle to garage. Return false if no parking space available or 
+        // vehicle with the same registration number already parked.
         public bool Add(IVehicle vehicle)
         {
-            int spot = Array.FindIndex(garage, v => v == null);
-            // TODO: check regnumber here? Yes, dont store if already exist
-            if (spot >= 0)
-            {
-                garage[spot] = vehicle;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            int spot = GetFreeSpotIndex;
+            if (spot < 0) return false;
+            if (GetVehicle(vehicle.RegNumber) != null) return false;
+            garage[spot] = vehicle;
+            return true;
         }
 
         // Get a Vehicle based on reg number. Returns null if not found
