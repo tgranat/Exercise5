@@ -53,8 +53,7 @@ namespace Exercise5
             //vehicleGarage.GetAllVehicles().ForEach(v => Console.WriteLine(v));
 
 
-            var x = vehicleGarage.GetVehicles("Blue", 4);
-            x.ForEach(v => Console.WriteLine(v));
+
 
         }
     }

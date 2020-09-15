@@ -6,34 +6,25 @@ using System.Text;
 namespace Exercise5
 {
     // TODO extract interface
+
     public abstract class Vehicle
     {
-        private string regNumber;
-        private string color;
 
-        // Alpabetic characters in RegNumber is always stored in uppercase
-        public string RegNumber
-        {
-            get { return regNumber; }
-            set { regNumber = value.ToUpper(); }
-        }
-
-        // Alpabetic characters in Color is always stored in uppercase.
-        // Need to spell it correctly
-        public string Color
-        {
-            get { return color; }
-            set { color = value.ToUpper(); }
-        }   
-        public VehicleType VehicleType { get; set; }
-       
-        public int NumberOfWheels { get; set; }
+        public string RegNumber { get; }
+ 
+        public string Color { get; }
+ 
+        public VehicleType VehicleType { get; }
+        public int NumberOfWheels { get; }
 
         public Vehicle(string regNumber, VehicleType type, string color, int numberOfWheels)
         {
-            RegNumber = regNumber;    // regnumber should be unique but is tested when added to Garage
+            // Alpabetic characters in RegNumber is always stored in uppercase
+            RegNumber = regNumber.ToUpper();    // TODO regnumber should be unique but should  tested when added to Garage
             VehicleType = type;
-            Color = color;
+            // Alpabetic characters in Color is always stored in uppercase.
+            // Need to spell it correctly
+            Color = color.ToUpper();
             NumberOfWheels = numberOfWheels;
         }
 

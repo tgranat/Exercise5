@@ -37,7 +37,7 @@ namespace Exercise5
 
         public bool Add(Vehicle vehicle)
         {
-            // TODO: check regnumber here? Yes, dont store 
+            // TODO: check regnumber here? Yes, dont store if already exist
             if (IsParkingSpotAvailable)
             {
                 garage[NextAvailableSpot()] = vehicle;
@@ -72,7 +72,6 @@ namespace Exercise5
         // TODO lista fordonstyp och hur många av varje
 
         // List Vehicle with certain color and number of wheels
-        // TODO Add search combinations: search on color, search on VehicleType
         public List<Vehicle> GetVehicles(string color, int wheels)
         {
             var result = garage
@@ -81,7 +80,7 @@ namespace Exercise5
                 .ToList();
             return result;
         }
-
+        // List vehicles of certain color
         public List<Vehicle> GetVehicles(string color)
         {
             var result = garage
@@ -89,6 +88,7 @@ namespace Exercise5
                 .ToList();
             return result;
         }
+        // List vehicles of certain type
         public List<Vehicle> GetVehicles(VehicleType type)
         {
             var result = garage
@@ -97,10 +97,7 @@ namespace Exercise5
             return result;
         }
 
-
-        // TODO locate vehicle from en egenskap eller flera och på fordonstyp
-
-        // Scan garage for null = available parking lot
+         // Scan garage for null = available parking lot
         // If none available it returns capacity of garage
         private int NextAvailableSpot()
         {
