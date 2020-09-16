@@ -77,5 +77,12 @@ namespace Exercise5
             garage.GetVehicles(type).ForEach(v => vehicles.Add(v.ToString()));
             return vehicles;
         }
+
+        public List<string> GetNumberOfVehicles(Garage<IVehicle> garage)
+        {
+            List<string> vehicles = new List<string>();
+            garage.GetNumberOfVehicles().ForEach(t => vehicles.Add($"{t.Item1}:\t{t.Item2}"));
+            return vehicles;
+        }
     }
 }

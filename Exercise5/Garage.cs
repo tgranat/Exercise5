@@ -66,11 +66,10 @@ namespace Exercise5
         }
 
         // Return a List of tuples containing VehicleType and number of vehicles per type
-        public List<Tuple<VehicleType, int>> NumberOfVehicles()
+        public List<Tuple<VehicleType, int>> GetNumberOfVehicles()
         {
             List<Tuple<VehicleType, int>> result = new List<Tuple<VehicleType, int>>();
             var group = garage.GroupBy(v => v?.Type);  // returns a IEnumerable of IGrouping
-            Console.WriteLine(group.Count());
             foreach (var item in group)
             {
                 if (item != null && item.Key != null)

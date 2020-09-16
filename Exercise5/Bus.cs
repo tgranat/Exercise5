@@ -17,7 +17,7 @@ namespace Exercise5
 
         public override string ToString()
         {
-            return $"{base.ToString()} Seats: {Seats}";
+            return $"{base.ToString()}\tSeats: {Seats}";
         }
     }
 }

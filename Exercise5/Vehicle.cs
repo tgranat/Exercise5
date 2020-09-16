@@ -28,7 +28,7 @@ namespace Exercise5
 
         public override string ToString()
         {
-            return $"Reg number: {RegNumber} Type: {Type} Color: {Color} Wheels: {NumberOfWheels}";
+            return $"Number: {RegNumber}\tType: {Type}\tColor: {Color}\tWheels: {NumberOfWheels}";
         }
 
 

@@ -17,7 +17,7 @@ namespace Exercise5
 
         public override string ToString()
         {
-            return $"{base.ToString()} Fuel type: {FuelType}";
+            return $"{base.ToString()}\tFuel type: {FuelType}";
         }
     }
 }
