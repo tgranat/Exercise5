@@ -172,7 +172,7 @@ namespace Exercise5
             }
             
             int fuel = ui.ReadInt(
-                Enum.GetValues(typeof(FuelType)).Cast<int>().Min(),    
+                Enum.GetValues(typeof(FuelType)).Cast<int>().Min(),     // Getting min and max int values for enum 
                 Enum.GetValues(typeof(FuelType)).Cast<int>().Max());    // Thank you Stackoverflow
 
             if (handler.IsVehicleParked(garage, regNumber))
@@ -286,9 +286,9 @@ namespace Exercise5
                 ui.PrintLine("1 - List all vehicles");
                 ui.PrintLine("2 - List all parking spaces and vehicles");
                 ui.PrintLine("3 - List number of vehicle types");
-                ui.PrintLine("3 - List vehicles based on color");
-                ui.PrintLine("4 - List vehicles based on type");
-                ui.PrintLine("5 - List vehicles based on type, color and number of wheels"); // TODO how to do this better more dynamic??
+                ui.PrintLine("4 - List vehicles based on color");
+                ui.PrintLine("5 - List vehicles based on type");
+                ui.PrintLine("6 - List vehicles based on type, color and number of wheels"); // TODO how to do this better more dynamic??
 
                 int choice = ui.ReadInt();
 
@@ -307,12 +307,23 @@ namespace Exercise5
                         handler.GetNumberOfVehicles(garage).ForEach(i => ui.PrintLine(i));
                         break;
                     case 4:
-                        // TODO
-                        ui.PrintLine("Not implemented");
+                        var color = ui.ReadLine("Enter color: ");
+                        ui.PrintLine($"Vehicles with color {color}:");
+                        ui.PrintLine("Vehicles found:");
+                        handler.GetVehicles(garage, color).ForEach(i => ui.PrintLine(i));
                         break;
                     case 5:
-                        // TODO
-                        ui.PrintLine("Not implemented");
+                        VehicleType type = InputVehicleType();
+                        ui.PrintLine($"Vehicles of type {(VehicleType)type}:");
+                        ui.PrintLine("Vehicles found:");
+                        handler.GetVehicles(garage, type).ForEach(i => ui.PrintLine(i));
+                        break;
+                    case 6:
+                        VehicleType type1 = InputVehicleType();
+                        var color1 = ui.ReadLine("Enter color: ");
+                        var wheels = ui.ReadInt("Number of wheels: ");
+                        ui.PrintLine("Vehicles found:");
+                        handler.GetVehicles(garage, type1, color1, wheels).ForEach(i => ui.PrintLine(i));
                         break;
                     case 0:
                         ui.PrintLine("Exiting search and list.");
@@ -324,6 +335,19 @@ namespace Exercise5
             }
             while (true);
         }
-   
+
+        private VehicleType InputVehicleType()
+        {
+            ui.PrintLine("Enter vehicle type to list (enter digit)");
+            foreach (var enumValue in Enum.GetValues(typeof(VehicleType)))
+            {
+                ui.PrintLine($"{(int)enumValue} - {enumValue}");
+            }
+
+            int type = ui.ReadInt(
+                Enum.GetValues(typeof(VehicleType)).Cast<int>().Min(),
+                Enum.GetValues(typeof(VehicleType)).Cast<int>().Max());
+            return (VehicleType)type;
+        }
     }
 }
