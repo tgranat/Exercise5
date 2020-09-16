@@ -5,9 +5,7 @@ using System.Text;
 
 namespace Exercise5
 {
-    // TODO extract interface
-
-    public class UI
+    public class UI : IUI
     {
         public void PrintLine(string line)
         {
