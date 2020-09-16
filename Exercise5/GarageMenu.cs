@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Exercise5
@@ -78,7 +79,7 @@ namespace Exercise5
             ui.PrintLine("Manage vehicles");
             do
             {
-                ui.PrintLine("0 - Quit");
+                ui.PrintLine("0 - Back to main menu");
                 ui.PrintLine("1 - Add a car"); 
                 ui.PrintLine("2 - Add a bus");
                 ui.PrintLine("3 - Add a motorcycle");
@@ -92,12 +93,10 @@ namespace Exercise5
                 switch (choice)
                 {
                     case 1:
-                        // TODO
-                        ui.PrintLine("Not implemented");
+                        AddCar();
                         break;
                     case 2:
-                        // TODO
-                        ui.PrintLine("Not implemented");
+                        AddBus();
                         break;
                     case 3:
                         // TODO
@@ -130,12 +129,79 @@ namespace Exercise5
             }
             while (true);
         }
+
+        private void AddCar()
+        { 
+            if (handler.IsGarageFull(garage))
+            {
+                ui.PrintLine("Garage is full!");
+                return;
+            }
+            var (regNumber, color, wheels) = GetBasicVehicleInfo();
+            
+            ui.PrintLine("Enter fuel type (enter digit)");
+            foreach (var enumValue in Enum.GetValues(typeof(FuelType)))
+            {
+                ui.PrintLine($"{(int)enumValue} - {enumValue}");
+            }
+            // Thank you Stackoverflow
+            int fuel = ui.ReadInt(
+                Enum.GetValues(typeof(FuelType)).Cast<int>().Min(),
+                Enum.GetValues(typeof(FuelType)).Cast<int>().Max());
+
+            if (handler.IsVehicleParked(garage, regNumber))
+            {
+                ui.PrintLine($"Vehicle wirh registration number {regNumber} is already parked.");
+                return;
+            }
+            bool success = handler.CreateCar(garage, regNumber, color, wheels, (FuelType)fuel);
+            if (!success)
+            {
+                ui.PrintLine("Failed to add car.");
+                return;
+            }
+            ui.PrintLine("Successfully added car.");
+        }
+
+        private void AddBus()
+        {
+            if (handler.IsGarageFull(garage))
+            {
+                ui.PrintLine("Garage is full!");
+                return;
+            }
+            var (regNumber, color, wheels) = GetBasicVehicleInfo();
+
+            int seats = ui.ReadInt("Enter number of seats: ");
+
+            if (handler.IsVehicleParked(garage, regNumber))
+            {
+                ui.PrintLine($"Vehicle with registration number {regNumber} is already parked.");
+                return;
+            }
+            bool success = handler.CreateBus(garage, regNumber, color, wheels, seats);
+            if (!success)
+            {
+                ui.PrintLine("Failed to add car.");
+                return;
+            }
+            ui.PrintLine("Successfully added bus.");
+        }
+
+        private (string regNumber, string color, int wheels) GetBasicVehicleInfo()
+        {
+            string regNumber = ui.ReadLine("Enter registration number: ");
+            string color = ui.ReadLine("Enter color: ");
+            int wheels = ui.ReadInt("Enter number of wheels: ");
+            return (regNumber, color, wheels);
+        }
+
         private void GarageSearch()
         {
             ui.PrintLine("Search and list in garage");
             do
             {
-                ui.PrintLine("0 - Quit");
+                ui.PrintLine("0 - Back to main menu");
                 ui.PrintLine("1 - List all vehicles");
                 ui.PrintLine("2 - List all parking spaces and vehicles");
                 ui.PrintLine("3 - List number of vehicle types");

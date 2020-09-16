@@ -22,6 +22,10 @@ namespace Exercise5
             garage.Add(new Bus("sdfsdf", "Lilac", 6, 40));            
         }
 
+        public bool IsGarageFull(Garage<IVehicle> garage) => garage.GetFreeSpotIndex < 0;
+
+        public bool IsVehicleParked(Garage<IVehicle> garage, string regNumber) => garage.GetVehicle(regNumber) != null;
+
         public bool CreateCar(Garage<IVehicle> garage, string regNumber, string color, int wheels, FuelType fuel) =>
              garage.Add(new Car(regNumber, color, wheels, fuel));
 

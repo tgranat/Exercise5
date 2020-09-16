@@ -6,7 +6,7 @@ namespace Exercise5
 {
     public enum FuelType
     {
-        Gasoline,
+        Gasoline = 1,
         Diesel,
         Electricity,
         Kerosene

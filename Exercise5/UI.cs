@@ -20,17 +20,31 @@ namespace Exercise5
             return Console.ReadLine();
         }
 
-        public int ReadInt() => ReadInt("");
-        public int ReadInt(string prompt)
+        public int ReadInt(int min, int max) => ReadInt("", min, max);   
+        public int ReadInt() => ReadInt("", 0, 100);
+        public int ReadInt(string prompt) => ReadInt(prompt, 0, 100);
+        public int ReadInt(string prompt, int min, int max)
         {
             int result;
             do
             {
                 string line = ReadLine(prompt);
                 if (int.TryParse(line, out result))
-                    return result;
+                {
+                    if (result < min || result > max)
+                    {
+                        Console.WriteLine($"Input has to be in the range {min} - {max}");
+                        continue;
+                    }
+                    else
+                    {
+                        return result;
+                    }
+                }
                 else
+                {
                     Console.WriteLine("Input has to be an integer!");
+                }
             } while (true);
         }
     }
