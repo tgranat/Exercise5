@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
 
 namespace Exercise5.Tests
@@ -9,6 +10,18 @@ namespace Exercise5.Tests
     [TestClass]
     public class GarageTest
     {
+        // Utility method
+        private static Garage<IVehicle> CreateAndPopulateGarage()
+        {
+            return new Garage<IVehicle>(10)
+            {
+                new Car("ABC123", "Blue", 4, FuelType.Gasoline),
+                new Car("cde123", "Green", 4, FuelType.Gasoline),
+                new Car("xYz123", "Blue", 4, FuelType.Gasoline),
+                new Bus("CBA987", "Yellow", 4, 40),
+            };
+        }
+
         [TestMethod]
         public void Garage_CreateVehicleGarageSize10_Success()
         {
@@ -20,7 +33,6 @@ namespace Exercise5.Tests
         public void Garage_CreateCarGarageSize10_Success()
         {
             Garage<Car> carGarage = new Garage<Car>(10);
-
         }
 
         // build error
@@ -125,17 +137,6 @@ namespace Exercise5.Tests
             Assert.AreEqual(2, v.Count);
         }
 
-        private static Garage<IVehicle> CreateAndPopulateGarage()
-        {
-            return new Garage<IVehicle>(10)
-            {
-                new Car("ABC123", "Blue", 4, FuelType.Gasoline),
-                new Car("cde123", "Green", 4, FuelType.Gasoline),
-                new Car("xYz123", "Blue", 4, FuelType.Gasoline),
-                new Bus("CBA987", "Yellow", 4, 40),
-            };
-        }
-
         [TestMethod]
         public void Garage_RemoveVehicleOnRegnumber_Successful()
         {
@@ -149,7 +150,7 @@ namespace Exercise5.Tests
             Assert.IsNotNull(vehicleGarage[0]);
             Assert.IsTrue(vehicleGarage.RemoveVehicle("ABC123"));
             // Verify that spot is empty
-            Assert.IsNull(vehicleGarage[0]);         
+            Assert.IsNull(vehicleGarage[0]);
         }
         [TestMethod]
         public void Garage_RemoveVehicleOnRegnumber_Notfound()
@@ -168,20 +169,32 @@ namespace Exercise5.Tests
             Assert.IsNotNull(vehicleGarage[1]);
         }
 
+        [TestMethod]
+        public void Garage_GetFreeSpot_Success()
+        {
+            Garage<Vehicle> vehicleGarage = new Garage<Vehicle>(10)
+            {
+                new Car("ABC123", "Blue", 4, FuelType.Gasoline),
+                new Car("cde123", "Blue", 4, FuelType.Gasoline)
+            };
+            int expectedIndex = 2;
+            int freeSpot = vehicleGarage.GetFreeSpotIndex;
+            Assert.AreEqual(expectedIndex, freeSpot);
+        }
 
-
-        //[TestMethod]
-        //public void Garage_FetchWithIndex_Success()
-        //{
-
-        //}
-
-        //[TestMethod]
-        //public void Garage_FetchWithIndex_Outofbounds()
-        //{
-
-        //}
-
+        [TestMethod]
+        public void Garage_GetNumberOfVehicles_Success()
+        {
+            Garage<IVehicle> vehicleGarage = CreateAndPopulateGarage();
+            int expectedListCount = 2;
+            int expectedNoCars = 3;
+            VehicleType expectedType = VehicleType.Car;
+            var result = vehicleGarage.GetNumberOfVehicles();
+            Assert.AreEqual(expectedListCount, result.Count);
+            (VehicleType type, int count) = result.First();
+            Assert.AreEqual(expectedType, type);
+            Assert.AreEqual(expectedNoCars, count);
+        }
     }
 
 }
