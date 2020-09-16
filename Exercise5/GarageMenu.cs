@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
 
 namespace Exercise5
 {
     public class GarageMenu
     {
-  
-        // TODO extract handler interface
-        private GarageHandler handler;
+        private IGarageHandler handler;
         private Garage<IVehicle> garage;
         private IUI ui;  
 
@@ -140,14 +135,9 @@ namespace Exercise5
             var regNumber = ui.ReadLine("Enter registration number: ");
             if (handler.IsVehicleParked(garage, regNumber))
             {
-                if (handler.RemoveVehicle(garage, regNumber))
-                {
-                    ui.PrintLine($"Vehicle with registration number {regNumber} has been removed.");
-                }
-                else
-                {
-                    ui.PrintLine($"Vehicle with registration number {regNumber} could not be removed.");
-                }
+                ui.PrintLine(handler.RemoveVehicle(garage, regNumber) ?
+                   $"Vehicle with registration number {regNumber} has been removed." :
+                   $"Vehicle with registration number {regNumber} could not be removed.");
             }
             else
             {
@@ -178,15 +168,11 @@ namespace Exercise5
             if (handler.IsVehicleParked(garage, regNumber))
             {
                 ui.PrintLine($"A vehicle with registration number {regNumber} is already parked.");
-                return;
             }
-            bool success = handler.CreateCar(garage, regNumber, color, wheels, (FuelType)fuel);
-            if (!success)
+            else
             {
-                ui.PrintLine("Failed to add car.");
-                return;
+                ui.PrintLine(handler.CreateCar(garage, regNumber, color, wheels, (FuelType)fuel) ? "Successfully added car." : "Failed to add car.");
             }
-            ui.PrintLine("Successfully added car.");
         }
 
         private void AddBus()
@@ -203,10 +189,11 @@ namespace Exercise5
             if (handler.IsVehicleParked(garage, regNumber))
             {
                 ui.PrintLine($"A vehicle with registration number {regNumber} is already parked.");
-                return;
             }
-            var resultMessage = handler.CreateBus(garage, regNumber, color, wheels, seats) ? "Successfully added bus." : "Failed to add bus.";
-            ui.PrintLine(resultMessage);
+            else
+            {
+                ui.PrintLine(handler.CreateBus(garage, regNumber, color, wheels, seats) ? "Successfully added bus." : "Failed to add bus.");
+            }
         }
 
         private void AddMotorcycle()
@@ -223,10 +210,11 @@ namespace Exercise5
             if (handler.IsVehicleParked(garage, regNumber))
             {
                 ui.PrintLine($"A vehicle with registration number {regNumber} is already parked.");
-                return;
             }
-            var resultMessage = handler.CreateMotorcycle(garage, regNumber, color, wheels, volume) ? "Successfully added MC." : "Failed to add MC.";
-            ui.PrintLine(resultMessage);
+            else
+            {
+                ui.PrintLine(handler.CreateMotorcycle(garage, regNumber, color, wheels, volume) ? "Successfully added MC." : "Failed to add MC.");
+            }
         }
 
         private void AddBoat()
@@ -243,10 +231,11 @@ namespace Exercise5
             if (handler.IsVehicleParked(garage, regNumber))
             {
                 ui.PrintLine($"A vehicle with registration number {regNumber} is already parked.");
-                return;
             }
-            var resultMessage = handler.CreateBoat(garage, regNumber, color, wheels, length) ? "Successfully added boat." : "Failed to add boat.";
-            ui.PrintLine(resultMessage);
+            else
+            {
+                ui.PrintLine(handler.CreateBoat(garage, regNumber, color, wheels, length) ? "Successfully added boat." : "Failed to add boat.");
+            }
         }
 
         private void AddAirplane()
@@ -263,12 +252,13 @@ namespace Exercise5
             if (handler.IsVehicleParked(garage, regNumber))
             {
                 ui.PrintLine($"A vehicle with registration number {regNumber} is already parked.");
-                return;
             }
-            var resultMessage = handler.CreateAirplane(garage, regNumber, color, wheels, wingSpan)
-                ? "Successfully added airplane." : "Failed to add airplane.";
-            ui.PrintLine(resultMessage);
+            else
+            {
+                ui.PrintLine(handler.CreateAirplane(garage, regNumber, color, wheels, wingSpan) ? "Successfully added airplane." : "Failed to add airplane.");
+            }
         }
+
         private (string regNumber, string color, int wheels) GetBasicVehicleInfo()
         {
             string regNumber = ui.ReadLine("Enter registration number: ");
