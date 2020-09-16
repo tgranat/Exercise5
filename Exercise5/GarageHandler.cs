@@ -26,6 +26,8 @@ namespace Exercise5
 
         public bool IsVehicleParked(Garage<IVehicle> garage, string regNumber) => garage.GetVehicle(regNumber) != null;
 
+        public string GetVehicle(Garage<IVehicle> garage, string regNumber) =>  garage.GetVehicle(regNumber)?.ToString();
+
         public bool CreateCar(Garage<IVehicle> garage, string regNumber, string color, int wheels, FuelType fuel) =>
              garage.Add(new Car(regNumber, color, wheels, fuel));
 

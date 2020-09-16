@@ -111,8 +111,12 @@ namespace Exercise5
                         ui.PrintLine("Not implemented");
                         break;
                     case 6:
-                        // TODO
-                        ui.PrintLine("Not implemented");
+                        var regNumber = ui.ReadLine("Enter registration number: ");
+                        var vehicle = handler.GetVehicle(garage, regNumber);
+                        if (vehicle != null)
+                            ui.PrintLine(vehicle);
+                        else
+                            ui.PrintLine($"Vehicle with registration number {regNumber} not found.");
                         break;
                     case 7:
                         // TODO
@@ -151,7 +155,7 @@ namespace Exercise5
 
             if (handler.IsVehicleParked(garage, regNumber))
             {
-                ui.PrintLine($"Vehicle wirh registration number {regNumber} is already parked.");
+                ui.PrintLine($"Vehicle with registration number {regNumber} is already parked.");
                 return;
             }
             bool success = handler.CreateCar(garage, regNumber, color, wheels, (FuelType)fuel);
