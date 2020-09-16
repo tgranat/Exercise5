@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
@@ -111,16 +112,10 @@ namespace Exercise5
                         ui.PrintLine("Not implemented");
                         break;
                     case 6:
-                        var regNumber = ui.ReadLine("Enter registration number: ");
-                        var vehicle = handler.GetVehicle(garage, regNumber);
-                        if (vehicle != null)
-                            ui.PrintLine(vehicle);
-                        else
-                            ui.PrintLine($"Vehicle with registration number {regNumber} not found.");
+                        DisplayVehicle();
                         break;
                     case 7:
-                        // TODO
-                        ui.PrintLine("Not implemented");
+                        RemoveVehicle();
                         break;
                     case 0:
                         ui.PrintLine("Exiting mangage vehicles.");
@@ -133,6 +128,36 @@ namespace Exercise5
             }
             while (true);
         }
+
+        private void DisplayVehicle()
+        {
+            var regNumber = ui.ReadLine("Enter registration number: ");
+            var vehicle = handler.GetVehicle(garage, regNumber);
+            if (vehicle != null)
+                ui.PrintLine(vehicle);
+            else
+                ui.PrintLine($"Vehicle with registration number {regNumber} not found.");
+        }
+        private void RemoveVehicle()
+        {
+            var regNumber = ui.ReadLine("Enter registration number: ");
+            if (handler.IsVehicleParked(garage, regNumber))
+            {
+                if (handler.RemoveVehicle(garage, regNumber))
+                {
+                    ui.PrintLine($"Vehicle with registration number {regNumber} has been removed.");
+                }
+                else
+                {
+                    ui.PrintLine($"Vehicle with registration number {regNumber} could not be removed.");
+                }
+            }
+            else
+            {
+                ui.PrintLine($"Vehicle with registration number {regNumber} not found.");
+            }
+        }
+
 
         private void AddCar()
         { 
@@ -148,10 +173,10 @@ namespace Exercise5
             {
                 ui.PrintLine($"{(int)enumValue} - {enumValue}");
             }
-            // Thank you Stackoverflow
+            
             int fuel = ui.ReadInt(
-                Enum.GetValues(typeof(FuelType)).Cast<int>().Min(),
-                Enum.GetValues(typeof(FuelType)).Cast<int>().Max());
+                Enum.GetValues(typeof(FuelType)).Cast<int>().Min(),    
+                Enum.GetValues(typeof(FuelType)).Cast<int>().Max());    // Thank you Stackoverflow
 
             if (handler.IsVehicleParked(garage, regNumber))
             {

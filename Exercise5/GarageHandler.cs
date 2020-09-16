@@ -44,7 +44,7 @@ namespace Exercise5
             for (int i = 0; i < garage.Capacity; i++)
             {
                 if (garage[i] == null)
-                    garageData.Add($"{i};\tFree space");
+                    garageData.Add($"{i}.\tFree space");
                 else
                     garageData.Add($"{i}.\t{garage[i]}");
             }
