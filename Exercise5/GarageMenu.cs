@@ -24,8 +24,7 @@ namespace Exercise5
             handler = new GarageHandler();
             // Creates a default garage
             garage = handler.CreateGarage(10); 
-            //handler.PopulateWithTestData(garage);
-        }
+         }
         private void MainMenu()
         {
             ui.PrintLine("Garage 1.0");
@@ -72,10 +71,6 @@ namespace Exercise5
             int capacity = ui.ReadInt("Enter capacity of the garage: ");
             garage = handler.CreateGarage(capacity);
             ui.PrintLine($"New garage created with capacity: {capacity}");
-
-            //handler.PopulateWithTestData(garage);
-            //garage.NumberOfVehicles().ForEach(x => Console.WriteLine(x));
-            //handler.GetNumberOfVehicles(garage).ForEach(v => ui.PrintLine(v));
         }
 
         private void VehiclesManagement()
@@ -97,7 +92,32 @@ namespace Exercise5
                 switch (choice)
                 {
                     case 1:
-                        CreateGarage();
+                        // TODO
+                        ui.PrintLine("Not implemented");
+                        break;
+                    case 2:
+                        // TODO
+                        ui.PrintLine("Not implemented");
+                        break;
+                    case 3:
+                        // TODO
+                        ui.PrintLine("Not implemented");
+                        break;
+                    case 4:
+                        // TODO
+                        ui.PrintLine("Not implemented");
+                        break;
+                    case 5:
+                        // TODO
+                        ui.PrintLine("Not implemented");
+                        break;
+                    case 6:
+                        // TODO
+                        ui.PrintLine("Not implemented");
+                        break;
+                    case 7:
+                        // TODO
+                        ui.PrintLine("Not implemented");
                         break;
                     case 0:
                         ui.PrintLine("Exiting mangage vehicles.");
@@ -139,10 +159,17 @@ namespace Exercise5
                         ui.PrintLine("Number of vehicle types:");
                         handler.GetNumberOfVehicles(garage).ForEach(i => ui.PrintLine(i));
                         break;
+                    case 4:
+                        // TODO
+                        ui.PrintLine("Not implemented");
+                        break;
+                    case 5:
+                        // TODO
+                        ui.PrintLine("Not implemented");
+                        break;
                     case 0:
                         ui.PrintLine("Exiting search and list.");
                         return;
-
                     default:
                         ui.PrintLine("Please enter a valid input.");
                         break;
