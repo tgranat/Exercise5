@@ -100,16 +100,13 @@ namespace Exercise5
                         AddBus();
                         break;
                     case 3:
-                        // TODO
-                        ui.PrintLine("Not implemented");
+                        AddMotorcycle();
                         break;
                     case 4:
-                        // TODO
-                        ui.PrintLine("Not implemented");
+                        AddBoat();
                         break;
                     case 5:
-                        // TODO
-                        ui.PrintLine("Not implemented");
+                        AddAirplane();
                         break;
                     case 6:
                         DisplayVehicle();
@@ -180,7 +177,7 @@ namespace Exercise5
 
             if (handler.IsVehicleParked(garage, regNumber))
             {
-                ui.PrintLine($"Vehicle with registration number {regNumber} is already parked.");
+                ui.PrintLine($"A vehicle with registration number {regNumber} is already parked.");
                 return;
             }
             bool success = handler.CreateCar(garage, regNumber, color, wheels, (FuelType)fuel);
@@ -205,18 +202,73 @@ namespace Exercise5
 
             if (handler.IsVehicleParked(garage, regNumber))
             {
-                ui.PrintLine($"Vehicle with registration number {regNumber} is already parked.");
+                ui.PrintLine($"A vehicle with registration number {regNumber} is already parked.");
                 return;
             }
-            bool success = handler.CreateBus(garage, regNumber, color, wheels, seats);
-            if (!success)
-            {
-                ui.PrintLine("Failed to add car.");
-                return;
-            }
-            ui.PrintLine("Successfully added bus.");
+            var resultMessage = handler.CreateBus(garage, regNumber, color, wheels, seats) ? "Successfully added bus." : "Failed to add bus.";
+            ui.PrintLine(resultMessage);
         }
 
+        private void AddMotorcycle()
+        {
+            if (handler.IsGarageFull(garage))
+            {
+                ui.PrintLine("Garage is full!");
+                return;
+            }
+            var (regNumber, color, wheels) = GetBasicVehicleInfo();
+
+            int volume = ui.ReadInt("Enter cylinder volume: ");
+
+            if (handler.IsVehicleParked(garage, regNumber))
+            {
+                ui.PrintLine($"A vehicle with registration number {regNumber} is already parked.");
+                return;
+            }
+            var resultMessage = handler.CreateMotorcycle(garage, regNumber, color, wheels, volume) ? "Successfully added MC." : "Failed to add MC.";
+            ui.PrintLine(resultMessage);
+        }
+
+        private void AddBoat()
+        {
+            if (handler.IsGarageFull(garage))
+            {
+                ui.PrintLine("Garage is full!");
+                return;
+            }
+            var (regNumber, color, wheels) = GetBasicVehicleInfo();
+
+            int length = ui.ReadInt("Enter length: ");
+
+            if (handler.IsVehicleParked(garage, regNumber))
+            {
+                ui.PrintLine($"A vehicle with registration number {regNumber} is already parked.");
+                return;
+            }
+            var resultMessage = handler.CreateBoat(garage, regNumber, color, wheels, length) ? "Successfully added boat." : "Failed to add boat.";
+            ui.PrintLine(resultMessage);
+        }
+
+        private void AddAirplane()
+        {
+            if (handler.IsGarageFull(garage))
+            {
+                ui.PrintLine("Garage is full!");
+                return;
+            }
+            var (regNumber, color, wheels) = GetBasicVehicleInfo();
+
+            int wingSpan = ui.ReadInt("Enter wingspan: ");
+
+            if (handler.IsVehicleParked(garage, regNumber))
+            {
+                ui.PrintLine($"A vehicle with registration number {regNumber} is already parked.");
+                return;
+            }
+            var resultMessage = handler.CreateAirplane(garage, regNumber, color, wheels, wingSpan)
+                ? "Successfully added airplane." : "Failed to add airplane.";
+            ui.PrintLine(resultMessage);
+        }
         private (string regNumber, string color, int wheels) GetBasicVehicleInfo()
         {
             string regNumber = ui.ReadLine("Enter registration number: ");

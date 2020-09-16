@@ -34,6 +34,14 @@ namespace Exercise5
         public bool CreateBus(Garage<IVehicle> garage, string regNumber, string color, int wheels, int seats) =>
              garage.Add(new Bus(regNumber, color, wheels, seats));
 
+        public bool CreateMotorcycle(Garage<IVehicle> garage, string regNumber, string color, int wheels, int volume) =>
+            garage.Add(new Motorcycle(regNumber, color, wheels, volume));
+        public bool CreateBoat(Garage<IVehicle> garage, string regNumber, string color, int wheels, int length) =>
+             garage.Add(new Boat(regNumber, color, wheels, length));
+
+        public bool CreateAirplane(Garage<IVehicle> garage, string regNumber, string color, int wheels, int wingSpan) =>
+           garage.Add(new Airplane(regNumber, color, wheels, wingSpan));
+
         public bool RemoveVehicle(Garage<IVehicle> garage, string regNumber) =>
             garage.RemoveVehicle(regNumber);
 

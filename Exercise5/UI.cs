@@ -21,8 +21,8 @@ namespace Exercise5
         }
 
         public int ReadInt(int min, int max) => ReadInt("", min, max);   
-        public int ReadInt() => ReadInt("", 0, 100);
-        public int ReadInt(string prompt) => ReadInt(prompt, 0, 100);
+        public int ReadInt() => ReadInt("", 0, 10000);
+        public int ReadInt(string prompt) => ReadInt(prompt, 0, 10000);
         public int ReadInt(string prompt, int min, int max)
         {
             int result;
