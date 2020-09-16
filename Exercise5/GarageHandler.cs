@@ -4,10 +4,7 @@ using System.Text;
 
 namespace Exercise5
 {
-    // För abstraktion
-    // TODO extract handler interface
-
-    public class GarageHandler
+     public class GarageHandler : IGarageHandler
     {
         public Garage<IVehicle> CreateGarage(int size)
         {
@@ -31,7 +28,7 @@ namespace Exercise5
 
         public bool IsVehicleParked(Garage<IVehicle> garage, string regNumber) => garage.GetVehicle(regNumber) != null;
 
-        public string GetVehicle(Garage<IVehicle> garage, string regNumber) =>  garage.GetVehicle(regNumber)?.ToString();
+        public string GetVehicle(Garage<IVehicle> garage, string regNumber) => garage.GetVehicle(regNumber)?.ToString();
 
         public bool CreateCar(Garage<IVehicle> garage, string regNumber, string color, int wheels, FuelType fuel) =>
              garage.Add(new Car(regNumber, color, wheels, fuel));
