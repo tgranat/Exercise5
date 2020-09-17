@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Exercise5
 {
@@ -32,6 +31,7 @@ namespace Exercise5
 
         public int Capacity => garage.Length;
 
+        // Get next free parking spot. Return -1 if no free spots.
         public int GetFreeSpotIndex => Array.FindIndex(garage, v => v == null);
 
         // Add IVehicle to garage. Return false if no parking space available or 
