@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Exercise5
 {
-    public class UI : IUI
+    public class ConsoleUI : IUI
     {
         public void PrintLine(string line)
         {

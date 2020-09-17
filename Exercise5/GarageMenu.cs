@@ -17,7 +17,7 @@ namespace Exercise5
 
         private void Initialize()
         {
-            ui = new UI(); 
+            ui = new ConsoleUI(); 
             handler = new GarageHandler();
             // Creates a default garage
             garage = handler.CreateGarage(10); 
