@@ -31,6 +31,8 @@ namespace Exercise5
 
         public int Capacity => garage.Length;
 
+        public bool IsGarageFull => GetFreeSpotIndex < 0;
+
         // Get next free parking spot. Return -1 if no free spots.
         public int GetFreeSpotIndex => Array.FindIndex(garage, v => v == null);
 

@@ -3,6 +3,15 @@ using System.Linq;
 
 namespace Exercise5
 {
+
+    // Funderingar
+    // 
+    // Användandet av Enum för fordonstyp, är det bra eller ska man undvika?
+    // 
+    // Sökandet på fordon utifrån kombinationer av egenskaper tycker jag
+    // blev grötigt. Finns det något bra sätt att göra det mer dynamiskt,
+    // eller vad man ska kalla det?
+
     public class GarageMenu
     {
         private GarageHandler handler;
@@ -124,18 +133,18 @@ namespace Exercise5
         private void DisplayVehicle()
         {
             var regNumber = ui.ReadLine("Enter registration number: ");
-            var vehicle = handler.GetVehicle(garage, regNumber);
+            var vehicle = garage.GetVehicle(regNumber);
             if (vehicle != null)
-                ui.PrintLine(vehicle);
+                ui.PrintLine(vehicle.ToString());
             else
                 ui.PrintLine($"Vehicle with registration number {regNumber} not found.");
         }
         private void RemoveVehicle()
         {
             var regNumber = ui.ReadLine("Enter registration number: ");
-            if (handler.IsVehicleParked(garage, regNumber))
+            if (IsVehicleParked(regNumber))
             {
-                ui.PrintLine(handler.RemoveVehicle(garage, regNumber) ?
+                ui.PrintLine(garage.RemoveVehicle(regNumber) ?
                    $"Vehicle with registration number {regNumber} has been removed." :
                    $"Vehicle with registration number {regNumber} could not be removed.");
             }
@@ -148,13 +157,15 @@ namespace Exercise5
 
         private void AddCar()
         { 
-            if (handler.IsGarageFull(garage))
+            if (IsGarageFull)
             {
                 ui.PrintLine("Garage is full!");
                 return;
             }
+
             var (regNumber, color, wheels) = GetBasicVehicleInfo();
             
+            // Get specific Car info
             ui.PrintLine("Enter fuel type (enter digit)");
             foreach (var enumValue in Enum.GetValues(typeof(FuelType)))
             {
@@ -163,42 +174,42 @@ namespace Exercise5
             
             int fuel = ui.ReadInt(
                 Enum.GetValues(typeof(FuelType)).Cast<int>().Min(),     // Getting min and max int values for enum 
-                Enum.GetValues(typeof(FuelType)).Cast<int>().Max());    // Thank you Stackoverflow
+                Enum.GetValues(typeof(FuelType)).Cast<int>().Max());    // (Stackoverflow)
 
-            if (handler.IsVehicleParked(garage, regNumber))
+            if (IsVehicleParked(regNumber))
             {
                 ui.PrintLine($"A vehicle with registration number {regNumber} is already parked.");
             }
             else
             {
-                ui.PrintLine(handler.CreateCar(garage, regNumber, color, wheels, (FuelType)fuel) ? "Successfully added car." : "Failed to add car.");
+                ui.PrintLine(garage.Add(new Car(regNumber, color, wheels, (FuelType)fuel)) ? "Successfully added car." : "Failed to add car.");
             }
         }
 
         private void AddBus()
         {
-            if (handler.IsGarageFull(garage))
+            if (IsGarageFull)
             {
                 ui.PrintLine("Garage is full!");
                 return;
             }
             var (regNumber, color, wheels) = GetBasicVehicleInfo();
-
+            // Get Bus specific info
             int seats = ui.ReadInt("Enter number of seats: ");
 
-            if (handler.IsVehicleParked(garage, regNumber))
+            if (IsVehicleParked(regNumber))
             {
                 ui.PrintLine($"A vehicle with registration number {regNumber} is already parked.");
             }
             else
             {
-                ui.PrintLine(handler.CreateBus(garage, regNumber, color, wheels, seats) ? "Successfully added bus." : "Failed to add bus.");
+                ui.PrintLine(garage.Add(new Bus(regNumber, color, wheels, seats)) ? "Successfully added bus." : "Failed to add bus.");
             }
         }
 
         private void AddMotorcycle()
         {
-            if (handler.IsGarageFull(garage))
+            if (IsGarageFull)
             {
                 ui.PrintLine("Garage is full!");
                 return;
@@ -207,19 +218,19 @@ namespace Exercise5
 
             int volume = ui.ReadInt("Enter cylinder volume: ");
 
-            if (handler.IsVehicleParked(garage, regNumber))
+            if (IsVehicleParked(regNumber))
             {
                 ui.PrintLine($"A vehicle with registration number {regNumber} is already parked.");
             }
             else
             {
-                ui.PrintLine(handler.CreateMotorcycle(garage, regNumber, color, wheels, volume) ? "Successfully added MC." : "Failed to add MC.");
+                ui.PrintLine(garage.Add(new Motorcycle(regNumber, color, wheels, volume)) ? "Successfully added MC." : "Failed to add MC.");
             }
         }
 
         private void AddBoat()
         {
-            if (handler.IsGarageFull(garage))
+            if (IsGarageFull)
             {
                 ui.PrintLine("Garage is full!");
                 return;
@@ -228,19 +239,19 @@ namespace Exercise5
 
             int length = ui.ReadInt("Enter length: ");
 
-            if (handler.IsVehicleParked(garage, regNumber))
+            if (IsVehicleParked(regNumber))
             {
                 ui.PrintLine($"A vehicle with registration number {regNumber} is already parked.");
             }
             else
             {
-                ui.PrintLine(handler.CreateBoat(garage, regNumber, color, wheels, length) ? "Successfully added boat." : "Failed to add boat.");
+                ui.PrintLine(garage.Add(new Boat(regNumber, color, wheels, length)) ? "Successfully added boat." : "Failed to add boat.");
             }
         }
 
         private void AddAirplane()
         {
-            if (handler.IsGarageFull(garage))
+            if (IsGarageFull)
             {
                 ui.PrintLine("Garage is full!");
                 return;
@@ -249,13 +260,13 @@ namespace Exercise5
 
             int wingSpan = ui.ReadInt("Enter wingspan: ");
 
-            if (handler.IsVehicleParked(garage, regNumber))
+            if (IsVehicleParked(regNumber))
             {
                 ui.PrintLine($"A vehicle with registration number {regNumber} is already parked.");
             }
             else
             {
-                ui.PrintLine(handler.CreateAirplane(garage, regNumber, color, wheels, wingSpan) ? "Successfully added airplane." : "Failed to add airplane.");
+                ui.PrintLine(garage.Add(new Airplane(regNumber, color, wheels, wingSpan)) ? "Successfully added airplane." : "Failed to add airplane.");
             }
         }
 
@@ -286,34 +297,41 @@ namespace Exercise5
                 {
                     case 1:
                         ui.PrintLine("Parked vehicles:");
-                        handler.GetParkedVehicles(garage).ForEach(i => ui.PrintLine(i));
+                        foreach (var item in garage)
+                        {
+                            if (item != null) ui.PrintLine(item.ToString());
+                        }
                         break;
                     case 2:
                         ui.PrintLine("Parking spaces:");
-                        handler.GetParkingSpaceData(garage).ForEach(i => ui.PrintLine(i));
+                        for (int i = 0; i < garage.Capacity; i++)
+                        {
+                            if (garage[i] == null)
+                                ui.PrintLine($"{i}.\tFree space");
+                            else
+                                ui.PrintLine($"{i}.\t{garage[i]}");
+                        }
                         break;
                     case 3:
                         ui.PrintLine("Number of vehicle types:");
-                        handler.GetNumberOfVehicles(garage).ForEach(i => ui.PrintLine(i));
+                        garage.GetNumberOfVehicles().ForEach(t => ui.PrintLine($"{t.Item1}:\t{t.Item2}"));
                         break;
                     case 4:
                         var color = ui.ReadLine("Enter color: ");
                         ui.PrintLine($"Vehicles with color {color}:");
-                        ui.PrintLine("Vehicles found:");
-                        handler.GetVehicles(garage, color).ForEach(i => ui.PrintLine(i));
+                        garage.GetVehicles(color).ForEach(i => ui.PrintLine(i.ToString()));
                         break;
                     case 5:
                         VehicleType type = InputVehicleType();
                         ui.PrintLine($"Vehicles of type {(VehicleType)type}:");
-                        ui.PrintLine("Vehicles found:");
-                        handler.GetVehicles(garage, type).ForEach(i => ui.PrintLine(i));
+                        garage.GetVehicles(type).ForEach(i => ui.PrintLine(i.ToString()));
                         break;
                     case 6:
                         VehicleType type1 = InputVehicleType();
                         var color1 = ui.ReadLine("Enter color: ");
                         var wheels = ui.ReadInt("Number of wheels: ");
                         ui.PrintLine("Vehicles found:");
-                        handler.GetVehicles(garage, type1, color1, wheels).ForEach(i => ui.PrintLine(i));
+                        garage.GetVehicles(type1, color1, wheels).ForEach(i => ui.PrintLine(i.ToString()));
                         break;
                     case 0:
                         ui.PrintLine("Exiting search and list.");
@@ -339,5 +357,8 @@ namespace Exercise5
                 Enum.GetValues(typeof(VehicleType)).Cast<int>().Max());
             return (VehicleType)type;
         }
+
+        private bool IsGarageFull => garage.GetFreeSpotIndex < 0;
+        private bool IsVehicleParked(string regNumber) => garage.GetVehicle(regNumber) != null;
     }
 }
