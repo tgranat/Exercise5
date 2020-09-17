@@ -10,7 +10,8 @@ namespace Exercise5.Tests
     [TestClass]
     public class GarageTest
     {
-        // Utility method
+        // Utility method. Changes to this will break tests. If changed, check/update tests
+        // using this utility method.
         private static Garage<IVehicle> CreateAndPopulateGarage()
         {
             return new Garage<IVehicle>(10)
@@ -138,6 +139,14 @@ namespace Exercise5.Tests
         }
 
         [TestMethod]
+        public void Garage_GetVehiclesOnColorWheels_Found()
+        {
+            Garage<IVehicle> vehicleGarage = CreateAndPopulateGarage();
+            List<IVehicle> v = vehicleGarage.GetVehicles("Blue", 4);
+            Assert.AreEqual(2, v.Count);
+        }
+
+        [TestMethod]
         public void Garage_RemoveVehicleOnRegnumber_Successful()
         {
             Garage<Vehicle> vehicleGarage = new Garage<Vehicle>(10)
@@ -194,6 +203,25 @@ namespace Exercise5.Tests
             (VehicleType type, int count) = result.First();
             Assert.AreEqual(expectedType, type);
             Assert.AreEqual(expectedNoCars, count);
+        }
+
+        [TestMethod]
+        public void Garage_FindFreeSpot_Success()
+        {
+            Garage<IVehicle> vehicleGarage = CreateAndPopulateGarage();
+            int expectedFreeSpot = 4;
+            int freeSpotFound = vehicleGarage.GetFreeSpotIndex;
+            Assert.AreEqual(expectedFreeSpot, freeSpotFound);
+        }
+
+        [TestMethod]
+        public void Garage_FindFreeSpot_NotFound()
+        {
+            Garage<IVehicle> vehicleGarage = new Garage<IVehicle>(1);
+            vehicleGarage.Add(new Car("ABC123", "Blue", 4, FuelType.Gasoline));
+            int expectedFreeSpot = -1;
+            int freeSpotFound = vehicleGarage.GetFreeSpotIndex;
+            Assert.AreEqual(expectedFreeSpot, freeSpotFound);
         }
     }
 
