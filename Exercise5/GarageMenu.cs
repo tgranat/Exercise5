@@ -6,8 +6,10 @@ namespace Exercise5
 
     // Funderingar
     // 
-    // Användandet av Enum för fordonstyp, är det bra eller ska man undvika?
+    // Användandet av Enum för fordonstyp, är det bra eller ska man undvika/göra på annat sätt?
     // 
+    // 
+    //
     // Sökandet på fordon utifrån kombinationer av egenskaper tycker jag
     // blev grötigt. Finns det något bra sätt att göra det mer dynamiskt,
     // eller vad man ska kalla det?
@@ -289,49 +291,29 @@ namespace Exercise5
                 ui.PrintLine("3 - List number of vehicle types");
                 ui.PrintLine("4 - List vehicles based on color");
                 ui.PrintLine("5 - List vehicles based on type");
-                ui.PrintLine("6 - List vehicles based on type, color and number of wheels"); // TODO how to do this better more dynamic??
+                ui.PrintLine("6 - List vehicles based on type, color and number of wheels"); // TODO how to do this smarter??
 
                 int choice = ui.ReadInt();
 
                 switch (choice)
                 {
                     case 1:
-                        ui.PrintLine("Parked vehicles:");
-                        foreach (var item in garage)
-                        {
-                            if (item != null) ui.PrintLine(item.ToString());
-                        }
+                        ParkedVehicles();
                         break;
                     case 2:
-                        ui.PrintLine("Parking spaces:");
-                        for (int i = 0; i < garage.Capacity; i++)
-                        {
-                            if (garage[i] == null)
-                                ui.PrintLine($"{i}.\tFree space");
-                            else
-                                ui.PrintLine($"{i}.\t{garage[i]}");
-                        }
+                        ParkingSpaces();
                         break;
                     case 3:
-                        ui.PrintLine("Number of vehicle types:");
-                        garage.GetNumberOfVehicles().ForEach(t => ui.PrintLine($"{t.Item1}:\t{t.Item2}"));
+                        VehicleTypes();
                         break;
                     case 4:
-                        var color = ui.ReadLine("Enter color: ");
-                        ui.PrintLine($"Vehicles with color {color}:");
-                        garage.GetVehicles(color).ForEach(i => ui.PrintLine(i.ToString()));
+                        VehiclesColor();
                         break;
                     case 5:
-                        VehicleType type = InputVehicleType();
-                        ui.PrintLine($"Vehicles of type {(VehicleType)type}:");
-                        garage.GetVehicles(type).ForEach(i => ui.PrintLine(i.ToString()));
+                        VehicleType();
                         break;
                     case 6:
-                        VehicleType type1 = InputVehicleType();
-                        var color1 = ui.ReadLine("Enter color: ");
-                        var wheels = ui.ReadInt("Number of wheels: ");
-                        ui.PrintLine("Vehicles found:");
-                        garage.GetVehicles(type1, color1, wheels).ForEach(i => ui.PrintLine(i.ToString()));
+                        VehiclesTypeColorWheel();
                         break;
                     case 0:
                         ui.PrintLine("Exiting search and list.");
@@ -342,6 +324,54 @@ namespace Exercise5
                 }
             }
             while (true);
+        }
+
+        private void ParkedVehicles()
+        {
+            ui.PrintLine("Parked vehicles:");
+            foreach (var item in garage)
+            {
+                if (item != null) ui.PrintLine(item.ToString());
+            }
+        }
+        private void ParkingSpaces()
+        {
+            ui.PrintLine("Parking spaces:");
+            for (int i = 0; i < garage.Capacity; i++)
+            {
+                if (garage[i] == null)
+                    ui.PrintLine($"{i}.\tFree space");
+                else
+                    ui.PrintLine($"{i}.\t{garage[i]}");
+            }
+        }
+        private void VehicleTypes()
+        {
+            ui.PrintLine("Number of vehicle types:");
+            garage.GetNumberOfVehicles().ForEach(t => ui.PrintLine($"{t.Item1}:\t{t.Item2}"));
+        }
+
+        private void VehiclesColor()
+        {
+            var color = ui.ReadLine("Enter color: ");
+            ui.PrintLine($"Vehicles with color {color}:");
+            garage.GetVehicles(color).ForEach(i => ui.PrintLine(i.ToString()));
+        }
+
+        private void VehicleType()
+        {
+            VehicleType type = InputVehicleType();
+            ui.PrintLine($"Vehicles of type {(VehicleType)type}:");
+            garage.GetVehicles(type).ForEach(i => ui.PrintLine(i.ToString()));
+        }
+
+        private void VehiclesTypeColorWheel()
+        {
+            VehicleType type1 = InputVehicleType();
+            var color1 = ui.ReadLine("Enter color: ");
+            var wheels = ui.ReadInt("Number of wheels: ");
+            ui.PrintLine("Vehicles found:");
+            garage.GetVehicles(type1, color1, wheels).ForEach(i => ui.PrintLine(i.ToString()));
         }
 
         private VehicleType InputVehicleType()
