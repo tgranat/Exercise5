@@ -32,6 +32,7 @@ namespace Exercise5
                 ui.PrintLine("2 - Manage vehicles (add, remove, display info)"); 
                 ui.PrintLine("3 - Searches (list and search in garage)");
                 ui.PrintLine("4 - Populate garage with testdata");
+                ui.PrintLine("5 - Resize garage");
 
                 int choice = ui.ReadInt();
                
@@ -50,6 +51,10 @@ namespace Exercise5
                         handler.PopulateWithTestData(garage);
                         ui.PrintLine("Garage has been populated with test data");
                         break;
+                    case 5:
+                        int newSize = ui.ReadInt($"Current size  is {garage.Capacity}. If size is reduced, data may be lost. New size: ");
+                        garage.Resize(newSize);
+                        break;
                     case 0:
                         ui.PrintLine("Exiting.");
                         return;
@@ -65,7 +70,7 @@ namespace Exercise5
 
         private void CreateGarage()
         {
-            int capacity = ui.ReadInt("Enter capacity of the garage: ");
+            int capacity = ui.ReadInt("Enter capacity of the garage (max size 1000): ", 0, 1000);
             garage = handler.CreateGarage(capacity);
             ui.PrintLine($"New garage created with capacity: {capacity}");
         }

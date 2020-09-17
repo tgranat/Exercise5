@@ -8,6 +8,7 @@ namespace Exercise5
     {
         IVehicle this[int index] { get; }
         int Capacity { get; }
+        void Resize(int newSize);
         int GetFreeSpotIndex { get; }
         bool Add(IVehicle vehicle);
         IEnumerator GetEnumerator();

@@ -17,6 +17,12 @@ namespace Exercise5
         {
             garage = new IVehicle[sizeOfGarage];
         }
+       
+        // Resize (that is create new array and copy elements)
+        public void Resize(int newSize)
+        {
+            Array.Resize<IVehicle>(ref garage, newSize);
+        }
 
         // Declare index
         public IVehicle this[int index] => garage[index];
