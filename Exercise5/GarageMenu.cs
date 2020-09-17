@@ -3,17 +3,6 @@ using System.Linq;
 
 namespace Exercise5
 {
-
-    // Funderingar
-    // 
-    // Användandet av Enum för fordonstyp, är det bra eller ska man undvika/göra på annat sätt?
-    // 
-    // 
-    //
-    // Sökandet på fordon utifrån kombinationer av egenskaper tycker jag
-    // blev grötigt. Finns det något bra sätt att göra det mer dynamiskt,
-    // eller vad man ska kalla det?
-
     public class GarageMenu
     {
         private GarageHandler handler;
@@ -291,7 +280,7 @@ namespace Exercise5
                 ui.PrintLine("3 - List number of vehicle types");
                 ui.PrintLine("4 - List vehicles based on color");
                 ui.PrintLine("5 - List vehicles based on type");
-                ui.PrintLine("6 - List vehicles based on type, color and number of wheels"); // TODO how to do this smarter??
+                ui.PrintLine("6 - List vehicles based on type, color and number of wheels");
 
                 int choice = ui.ReadInt();
 
