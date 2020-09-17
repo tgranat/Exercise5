@@ -11,7 +11,7 @@ namespace Exercise5.Tests
         public void GarageHandler_Garage_Success()
         {
             GarageHandler h = new GarageHandler();
-            Garage<IVehicle> g = h.CreateGarage(10);
+            IGarage g = h.CreateGarage(10);
             Assert.IsNotNull(g);
         }
     }

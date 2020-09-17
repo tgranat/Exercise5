@@ -7,7 +7,7 @@ namespace Exercise5
 {
     // Stores a generic collection of type Vehicle or its subclasses.
 
-    public class Garage<T> : IEnumerable where T : IVehicle
+    public class Garage<T> : IGarage, IEnumerable where T : IVehicle
     {
         private IVehicle[] garage;
  

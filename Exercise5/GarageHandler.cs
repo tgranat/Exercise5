@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Exercise5
 {
-     public class GarageHandler : IGarageHandler
+     public class GarageHandler
     {
-        public Garage<IVehicle> CreateGarage(int size)
+        public IGarage CreateGarage(int size)
         {
             return new Garage<IVehicle>(size);
         }
 
-        public void PopulateWithTestData(Garage<IVehicle> garage)
+        public void PopulateWithTestData(IGarage garage)
         {
             garage.Add(new Car("ABC123", "Blue", 4, FuelType.Gasoline));
             garage.Add(new Car("CDE123", "Green", 3, FuelType.Gasoline));
@@ -24,31 +22,31 @@ namespace Exercise5
 
         }
 
-        public bool IsGarageFull(Garage<IVehicle> garage) => garage.GetFreeSpotIndex < 0;
+        public bool IsGarageFull(IGarage garage) => garage.GetFreeSpotIndex < 0;
 
-        public bool IsVehicleParked(Garage<IVehicle> garage, string regNumber) => garage.GetVehicle(regNumber) != null;
+        public bool IsVehicleParked(IGarage garage, string regNumber) => garage.GetVehicle(regNumber) != null;
 
-        public string GetVehicle(Garage<IVehicle> garage, string regNumber) => garage.GetVehicle(regNumber)?.ToString();
+        public string GetVehicle(IGarage garage, string regNumber) => garage.GetVehicle(regNumber)?.ToString();
 
-        public bool CreateCar(Garage<IVehicle> garage, string regNumber, string color, int wheels, FuelType fuel) =>
+        public bool CreateCar(IGarage garage, string regNumber, string color, int wheels, FuelType fuel) =>
              garage.Add(new Car(regNumber, color, wheels, fuel));
 
-        public bool CreateBus(Garage<IVehicle> garage, string regNumber, string color, int wheels, int seats) =>
+        public bool CreateBus(IGarage garage, string regNumber, string color, int wheels, int seats) =>
              garage.Add(new Bus(regNumber, color, wheels, seats));
 
-        public bool CreateMotorcycle(Garage<IVehicle> garage, string regNumber, string color, int wheels, int volume) =>
+        public bool CreateMotorcycle(IGarage garage, string regNumber, string color, int wheels, int volume) =>
             garage.Add(new Motorcycle(regNumber, color, wheels, volume));
-        public bool CreateBoat(Garage<IVehicle> garage, string regNumber, string color, int wheels, int length) =>
+        public bool CreateBoat(IGarage garage, string regNumber, string color, int wheels, int length) =>
              garage.Add(new Boat(regNumber, color, wheels, length));
 
-        public bool CreateAirplane(Garage<IVehicle> garage, string regNumber, string color, int wheels, int wingSpan) =>
+        public bool CreateAirplane(IGarage garage, string regNumber, string color, int wheels, int wingSpan) =>
            garage.Add(new Airplane(regNumber, color, wheels, wingSpan));
 
-        public bool RemoveVehicle(Garage<IVehicle> garage, string regNumber) =>
+        public bool RemoveVehicle(IGarage garage, string regNumber) =>
             garage.RemoveVehicle(regNumber);
 
         // Return List<string> of all parking spaces including not occupied
-        public List<string> GetParkingSpaceData(Garage<IVehicle> garage)
+        public List<string> GetParkingSpaceData(IGarage garage)
         {
             List<string> garageData = new List<string>();
             for (int i = 0; i < garage.Capacity; i++)
@@ -62,7 +60,7 @@ namespace Exercise5
         }
 
         // Return parked vehicles as strings
-        public List<string> GetParkedVehicles(Garage<IVehicle> garage)
+        public List<string> GetParkedVehicles(IGarage garage)
         {
             List<string> vehicleData = new List<string>();
             foreach (var item in garage)
@@ -73,35 +71,35 @@ namespace Exercise5
         }
 
         // Return vehicles of a specific color as strings
-        public List<string> GetVehicles(Garage<IVehicle> garage, string color)
+        public List<string> GetVehicles(IGarage garage, string color)
         {
             List<string> vehicles = new List<string>();
             garage.GetVehicles(color).ForEach(v => vehicles.Add(v.ToString()));
             return vehicles;
         }
 
-        public List<string> GetVehicles(Garage<IVehicle> garage, string color, int wheels)
+        public List<string> GetVehicles(IGarage garage, string color, int wheels)
         {
             List<string> vehicles = new List<string>();
             garage.GetVehicles(color, wheels).ForEach(v => vehicles.Add(v.ToString()));
             return vehicles;
         }
 
-        public List<string> GetVehicles(Garage<IVehicle> garage, VehicleType type)
+        public List<string> GetVehicles(IGarage garage, VehicleType type)
         {
             List<string> vehicles = new List<string>();
             garage.GetVehicles(type).ForEach(v => vehicles.Add(v.ToString()));
             return vehicles;
         }
 
-        public List<string> GetVehicles(Garage<IVehicle> garage, VehicleType type, string color, int wheels)
+        public List<string> GetVehicles(IGarage garage, VehicleType type, string color, int wheels)
         {
             List<string> vehicles = new List<string>();
             garage.GetVehicles(type, color, wheels).ForEach(v => vehicles.Add(v.ToString()));
             return vehicles;
         }
 
-        public List<string> GetNumberOfVehicles(Garage<IVehicle> garage)
+        public List<string> GetNumberOfVehicles(IGarage garage)
         {
             List<string> vehicles = new List<string>();
             garage.GetNumberOfVehicles().ForEach(t => vehicles.Add($"{t.Item1}:\t{t.Item2}"));
