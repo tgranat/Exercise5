@@ -18,7 +18,7 @@ namespace Exercise5
             garage = new IVehicle[sizeOfGarage];
         }
        
-        // Resize (that is create new array and copy elements)
+        // Resize (ths creates new array and copy the elements)
         public void Resize(int newSize)
         {
             Array.Resize<IVehicle>(ref garage, newSize);
@@ -74,7 +74,7 @@ namespace Exercise5
         }
 
         // Return a List of tuples containing VehicleType and number of vehicles per type
-        public List<Tuple<VehicleType, int>> GetNumberOfVehicles()
+        public List<Tuple<VehicleType, int>> GetNumberOfVehiclesPerType()
         {
             List<Tuple<VehicleType, int>> result = new List<Tuple<VehicleType, int>>();
             var group = garage.GroupBy(v => v?.Type);  // returns a IEnumerable of IGrouping

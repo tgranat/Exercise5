@@ -17,10 +17,10 @@ namespace Exercise5
 
         public Vehicle(string regNumber, VehicleType type, string color, int numberOfWheels)
         {
-            // Alpabetic characters in RegNumber is always stored in uppercase
+            // Alphabetic characters in RegNumber are always stored in uppercase
             RegNumber = regNumber.ToUpper(); 
             Type = type;
-            // Alphabetic characters in Color is always stored in uppercase.
+            // Alphabetic characters in Color are always stored in uppercase.
             // Need to spell color correctly
             Color = color.ToUpper();
             NumberOfWheels = numberOfWheels;

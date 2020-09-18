@@ -12,7 +12,7 @@ namespace Exercise5
         int GetFreeSpotIndex { get; }
         bool Add(IVehicle vehicle);
         IEnumerator GetEnumerator();
-        List<Tuple<VehicleType, int>> GetNumberOfVehicles();
+        List<Tuple<VehicleType, int>> GetNumberOfVehiclesPerType();
         IVehicle GetVehicle(string regNumber);
         List<IVehicle> GetVehicles(string color);
         List<IVehicle> GetVehicles(string color, int wheels);

@@ -67,7 +67,7 @@ namespace Exercise5
             while (true);
         }
 
-
+        // Creates a garage. Overwrites the existing garage.
         private void CreateGarage()
         {
             int capacity = ui.ReadInt("Enter capacity of the garage (max size 1000): ", 0, 1000);
@@ -150,7 +150,6 @@ namespace Exercise5
             }
         }
 
-
         private void AddCar()
         { 
             if (IsGarageFull)
@@ -170,7 +169,7 @@ namespace Exercise5
             
             int fuel = ui.ReadInt(
                 Enum.GetValues(typeof(FuelType)).Cast<int>().Min(),     // Getting min and max int values for enum 
-                Enum.GetValues(typeof(FuelType)).Cast<int>().Max());    // (Stackoverflow)
+                Enum.GetValues(typeof(FuelType)).Cast<int>().Max());    // (got this from Stackoverflow)
 
             if (IsVehicleParked(regNumber))
             {
@@ -342,7 +341,8 @@ namespace Exercise5
         private void VehicleTypes()
         {
             ui.PrintLine("Number of vehicle types:");
-            garage.GetNumberOfVehicles().ForEach(t => ui.PrintLine($"{t.Item1}:\t{t.Item2}"));
+            // Get the data in List of tuples. Print Item1 and Item2 in the tuples.
+            garage.GetNumberOfVehiclesPerType().ForEach(t => ui.PrintLine($"{t.Item1}:\t{t.Item2}"));
         }
 
         private void VehiclesColor()

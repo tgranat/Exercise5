@@ -198,7 +198,7 @@ namespace Exercise5.Tests
             int expectedListCount = 2;
             int expectedNoCars = 3;
             VehicleType expectedType = VehicleType.Car;
-            var result = vehicleGarage.GetNumberOfVehicles();
+            var result = vehicleGarage.GetNumberOfVehiclesPerType();
             Assert.AreEqual(expectedListCount, result.Count);
             (VehicleType type, int count) = result.First();
             Assert.AreEqual(expectedType, type);
