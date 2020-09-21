@@ -36,13 +36,21 @@ namespace Exercise5.Tests
             IGarage carGarage = new Garage<Car>(10);
         }
 
-        // build error
+        // Tested that I got expected build error expected. Cant create garage of strings
         //[TestMethod]
         //public void Garage_CreateStringGarage_Fail()
         //{
         //    Garage<string> carGarage = new Garage<string>(10);
 
         //}
+
+        [TestMethod]
+        public void Garage_ResizeCarGarage_Success()
+        {
+            IGarage carGarage = new Garage<Car>(10);
+            carGarage.Resize(15);
+            Assert.AreEqual(15, carGarage.Capacity);
+        }
 
 
         [TestMethod]
