@@ -5,7 +5,7 @@ namespace Exercise5
 {
     public class GarageMenu
     {
-        private GarageHandler handler;
+        private IGarageHandler handler;
         private IGarage garage;
         private IUI ui;  
 
