@@ -48,7 +48,7 @@ namespace Exercise5
                         GarageSearch();
                         break;
                     case 4:
-                        handler.PopulateWithTestData(garage);
+                        PopulateWithTestData();
                         ui.PrintLine("Garage has been populated with test data");
                         break;
                     case 5:
@@ -387,5 +387,18 @@ namespace Exercise5
 
         private bool IsGarageFull => garage.GetFreeSpotIndex < 0;
         private bool IsVehicleParked(string regNumber) => garage.GetVehicle(regNumber) != null;
+
+        private void PopulateWithTestData()
+        {
+            garage.Add(handler.CreateCar("ABC123", "Blue", 4, FuelType.Gasoline));
+            garage.Add(handler.CreateCar("CDE123", "Green", 3, FuelType.Gasoline));
+            garage.Add(handler.CreateCar("FGH123", "Blue", 4, FuelType.Gasoline));
+            garage.Add(handler.CreateBus("AB6767767", "Blue", 6, 40));
+            garage.Add(handler.CreateAirplane("78784543", "White", 3, 20));
+            garage.Add(handler.CreateMotorCycle("iuy432", "red", 2, 750));
+            garage.Add(handler.CreateMotorCycle("J88888", "black", 3, 500));
+            garage.Add(handler.CreateBoat("77876GGG", "brown", 0, 9));
+
+        }
     }
 }
