@@ -18,14 +18,15 @@ namespace Exercise5
             garage = new IVehicle[sizeOfGarage];
         }
        
-        // Resize (ths creates new array and copy the elements)
+        // Resize (ths creates a new array and copies the elements)
         public void Resize(int newSize)
         {
             Array.Resize<IVehicle>(ref garage, newSize);
         }
 
-        // Declare index
+        // Declare indexer
         public IVehicle this[int index] => garage[index];
+
 
         public IEnumerator GetEnumerator()
         {
@@ -35,9 +36,8 @@ namespace Exercise5
             }
         }
 
+        // Return total number of elements in the garage array
         public int Capacity => garage.Length;
-
-        public bool IsGarageFull => GetFreeSpotIndex < 0;
 
         // Get next free parking spot. Return -1 if no free spots.
         public int GetFreeSpotIndex => Array.FindIndex(garage, v => v == null);
