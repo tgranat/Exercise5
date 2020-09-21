@@ -36,7 +36,7 @@ namespace Exercise5.Tests
             IGarage carGarage = new Garage<Car>(10);
         }
 
-        // Tested that I got expected build error expected. Cant create garage of strings
+        // Verified that I got expected build error expected. Cant create garage of strings
         //[TestMethod]
         //public void Garage_CreateStringGarage_Fail()
         //{

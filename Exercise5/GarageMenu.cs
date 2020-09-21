@@ -177,7 +177,7 @@ namespace Exercise5
             }
             else
             {
-                ui.PrintLine(garage.Add(new Car(regNumber, color, wheels, (FuelType)fuel)) ? "Successfully added car." : "Failed to add car.");
+                ui.PrintLine(garage.Add(handler.CreateCar(regNumber, color, wheels, (FuelType)fuel)) ? "Successfully added car." : "Failed to add car.");
             }
         }
 
@@ -198,7 +198,7 @@ namespace Exercise5
             }
             else
             {
-                ui.PrintLine(garage.Add(new Bus(regNumber, color, wheels, seats)) ? "Successfully added bus." : "Failed to add bus.");
+                ui.PrintLine(garage.Add(handler.CreateBus(regNumber, color, wheels, seats)) ? "Successfully added bus." : "Failed to add bus.");
             }
         }
 
@@ -219,7 +219,8 @@ namespace Exercise5
             }
             else
             {
-                ui.PrintLine(garage.Add(new Motorcycle(regNumber, color, wheels, volume)) ? "Successfully added MC." : "Failed to add MC.");
+                bool result = garage.Add(handler.CreateMotorCycle(regNumber, color, wheels, volume));
+                ui.PrintLine(result ? "Successfully added MC." : "Failed to add MC.");
             }
         }
 
@@ -240,7 +241,8 @@ namespace Exercise5
             }
             else
             {
-                ui.PrintLine(garage.Add(new Boat(regNumber, color, wheels, length)) ? "Successfully added boat." : "Failed to add boat.");
+                bool result = garage.Add(handler.CreateBoat(regNumber, color, wheels, length));
+                ui.PrintLine(result ? "Successfully added boat." : "Failed to add boat.");
             }
         }
 
@@ -261,7 +263,8 @@ namespace Exercise5
             }
             else
             {
-                ui.PrintLine(garage.Add(new Airplane(regNumber, color, wheels, wingSpan)) ? "Successfully added airplane." : "Failed to add airplane.");
+                bool result = garage.Add(handler.CreateAirplane(regNumber, color, wheels, wingSpan));
+                ui.PrintLine(result ? "Successfully added airplane." : "Failed to add airplane.");
             }
         }
 
