@@ -12,7 +12,7 @@ namespace Exercise5.Tests
     {
         // Utility method. Changes to this will break tests. If changed, check/update tests
         // using this utility method.
-        private static IGarage CreateAndPopulateGarage()
+        private static Garage<IVehicle> CreateAndPopulateGarage()
         {
             return new Garage<IVehicle>(10)
             {
@@ -26,14 +26,14 @@ namespace Exercise5.Tests
         [TestMethod]
         public void Garage_CreateVehicleGarageSize10_Success()
         {
-            IGarage vehicleGarage = new Garage<Vehicle>(10);
+            Garage<IVehicle> vehicleGarage = new Garage<IVehicle>(10);
 
         }
 
         [TestMethod]
         public void Garage_CreateCarGarageSize10_Success()
         {
-            IGarage carGarage = new Garage<Car>(10);
+            Garage<Car> carGarage = new Garage<Car>(10);
         }
 
         // Verified that I got expected build error expected. Cant create garage of strings
@@ -47,7 +47,7 @@ namespace Exercise5.Tests
         [TestMethod]
         public void Garage_ResizeCarGarage_Success()
         {
-            IGarage carGarage = new Garage<Car>(10);
+            Garage<Car> carGarage = new Garage<Car>(10);
             carGarage.Resize(15);
             Assert.AreEqual(15, carGarage.Capacity);
         }
@@ -56,8 +56,9 @@ namespace Exercise5.Tests
         [TestMethod]
         public void Garage_Foreach_Success()
         {
-            int expected = 10;
-            IGarage vehicleGarage = new Garage<Vehicle>(expected);
+            int expected = 1;
+            Garage<IVehicle> vehicleGarage = new Garage<IVehicle>(10);
+            vehicleGarage.Add(new Car("ABC123", "Blue", 4, FuelType.Gasoline));
             int actual = 0;
             foreach (var item in vehicleGarage)
             {
@@ -70,7 +71,7 @@ namespace Exercise5.Tests
         [TestMethod]
         public void Garage_AddCarToVehicleGarage_Success()
         {
-            IGarage vehicleGarage = new Garage<Vehicle>(10);
+            Garage<IVehicle> vehicleGarage = new Garage<IVehicle>(10);
             Car car = new Car("ABC123", "Blue", 4, FuelType.Gasoline);
             Assert.IsTrue(vehicleGarage.Add(car));
         }
@@ -78,7 +79,7 @@ namespace Exercise5.Tests
         [TestMethod]
         public void Garage_AddCarToCarGarage_Success()
         {
-            IGarage carGarage = new Garage<Car>(10);
+            Garage<Car> carGarage = new Garage<Car>(10);
             Car car = new Car("ABC123", "Blue", 4, FuelType.Gasoline);
             Assert.IsTrue(carGarage.Add(car));
         }
@@ -87,7 +88,7 @@ namespace Exercise5.Tests
         [TestMethod]
         public void Garage_AddCarToVehicleGarage_FailsGarageFull()
         {
-            IGarage vehicleGarage = new Garage<Vehicle>(1);
+            Garage<IVehicle> vehicleGarage = new Garage<IVehicle>(1);
             Car car1 = new Car("ABC123", "Blue", 4, FuelType.Gasoline);
             Car car2 = new Car("ABC456", "Green", 4, FuelType.Gasoline);
             vehicleGarage.Add(car1);
@@ -98,7 +99,7 @@ namespace Exercise5.Tests
         [TestMethod]
         public void Garage_GetCarFromVehicleGarageWithIndex_Success()
         {
-            IGarage vehicleGarage = new Garage<Vehicle>(10)
+            Garage<IVehicle> vehicleGarage = new Garage<IVehicle>(10)
             {
                 new Car("ABC123", "Blue", 4, FuelType.Gasoline)
             };
@@ -110,14 +111,14 @@ namespace Exercise5.Tests
         [TestMethod]
         public void Garage_GetVehicleOnRegnumber_Found()
         {
-            IGarage vehicleGarage = CreateAndPopulateGarage();
+            Garage<IVehicle>vehicleGarage = CreateAndPopulateGarage();
             IVehicle v = vehicleGarage.GetVehicle("Cde123");
             Assert.AreEqual("CDE123", v.RegNumber);  // Reg number stored uppercase
         }
         [TestMethod]
         public void Garage_GetVehicleOnRegnumber_NotFound()
         {
-            IGarage vehicleGarage = CreateAndPopulateGarage();
+            Garage<IVehicle> vehicleGarage = CreateAndPopulateGarage();
             IVehicle v = vehicleGarage.GetVehicle("123456");
             Assert.IsNull(v);
         }
@@ -125,7 +126,7 @@ namespace Exercise5.Tests
         [TestMethod]
         public void Garage_GetVehiclesOnColor_Found()
         {
-            IGarage vehicleGarage = CreateAndPopulateGarage();
+            Garage<IVehicle> vehicleGarage = CreateAndPopulateGarage();
             List<IVehicle> v = vehicleGarage.GetVehicles("Blue");
             Assert.AreEqual(2, v.Count);
         }
@@ -133,7 +134,7 @@ namespace Exercise5.Tests
         [TestMethod]
         public void Garage_GetVehiclesOnType_Found()
         {
-            IGarage vehicleGarage = CreateAndPopulateGarage();
+            Garage<IVehicle> vehicleGarage = CreateAndPopulateGarage();
             List<IVehicle> v = vehicleGarage.GetVehicles(VehicleType.Car);
             Assert.AreEqual(3, v.Count);
         }
@@ -141,7 +142,7 @@ namespace Exercise5.Tests
         [TestMethod]
         public void Garage_GetVehiclesOnTypeColorWheels_Found()
         {
-            IGarage vehicleGarage = CreateAndPopulateGarage();
+            Garage<IVehicle> vehicleGarage = CreateAndPopulateGarage();
             List<IVehicle> v = vehicleGarage.GetVehicles(VehicleType.Car, "Blue", 4);
             Assert.AreEqual(2, v.Count);
         }
@@ -149,7 +150,7 @@ namespace Exercise5.Tests
         [TestMethod]
         public void Garage_GetVehiclesOnColorWheels_Found()
         {
-            IGarage vehicleGarage = CreateAndPopulateGarage();
+            Garage<IVehicle> vehicleGarage = CreateAndPopulateGarage();
             List<IVehicle> v = vehicleGarage.GetVehicles("Blue", 4);
             Assert.AreEqual(2, v.Count);
         }
@@ -157,7 +158,7 @@ namespace Exercise5.Tests
         [TestMethod]
         public void Garage_RemoveVehicleOnRegnumber_Successful()
         {
-            IGarage vehicleGarage = new Garage<Vehicle>(10)
+            Garage<IVehicle> vehicleGarage = new Garage<IVehicle>(10)
             {
                 new Car("ABC123", "Blue", 4, FuelType.Gasoline),
                 new Car("cde123", "Blue", 4, FuelType.Gasoline),
@@ -172,7 +173,7 @@ namespace Exercise5.Tests
         [TestMethod]
         public void Garage_RemoveVehicleOnRegnumber_Notfound()
         {
-            IGarage vehicleGarage = new Garage<Vehicle>(10)
+            Garage<IVehicle> vehicleGarage = new Garage<IVehicle>(10)
             {
                 new Car("ABC123", "Blue", 4, FuelType.Gasoline),
                 new Car("cde123", "Blue", 4, FuelType.Gasoline)
@@ -189,7 +190,7 @@ namespace Exercise5.Tests
         [TestMethod]
         public void Garage_GetFreeSpot_Success()
         {
-            IGarage vehicleGarage = new Garage<Vehicle>(10)
+            Garage<IVehicle> vehicleGarage = new Garage<IVehicle>(10)
             {
                 new Car("ABC123", "Blue", 4, FuelType.Gasoline),
                 new Car("cde123", "Blue", 4, FuelType.Gasoline)
@@ -202,7 +203,7 @@ namespace Exercise5.Tests
         [TestMethod]
         public void Garage_GetNumberOfVehicles_Success()
         {
-            IGarage vehicleGarage = CreateAndPopulateGarage();
+            Garage<IVehicle> vehicleGarage = CreateAndPopulateGarage();
             int expectedListCount = 2;
             int expectedNoCars = 3;
             VehicleType expectedType = VehicleType.Car;
@@ -216,7 +217,7 @@ namespace Exercise5.Tests
         [TestMethod]
         public void Garage_FindFreeSpot_Success()
         {
-            IGarage vehicleGarage = CreateAndPopulateGarage();
+            Garage<IVehicle> vehicleGarage = CreateAndPopulateGarage();
             int expectedFreeSpot = 4;
             int freeSpotFound = vehicleGarage.GetFreeSpotIndex;
             Assert.AreEqual(expectedFreeSpot, freeSpotFound);
@@ -225,7 +226,7 @@ namespace Exercise5.Tests
         [TestMethod]
         public void Garage_FindFreeSpot_NotFound()
         {
-            IGarage vehicleGarage = new Garage<IVehicle>(1);
+            Garage<IVehicle> vehicleGarage = new Garage<IVehicle>(1);
             vehicleGarage.Add(new Car("ABC123", "Blue", 4, FuelType.Gasoline));
             int expectedFreeSpot = -1;
             int freeSpotFound = vehicleGarage.GetFreeSpotIndex;

@@ -5,8 +5,8 @@ namespace Exercise5
 {
     public class GarageMenu
     {
-        private IGarageHandler handler;
-        private IGarage garage;
+        private GarageHandler handler;
+        private Garage<IVehicle> garage;
         private IUI ui;  
 
         public void Run()
@@ -20,7 +20,9 @@ namespace Exercise5
             ui = new ConsoleUI(); 
             handler = new GarageHandler();
             // Creates a default garage
+            garage = new Garage<IVehicle>(10);
             garage = handler.CreateGarage(10); 
+             
          }
         private void MainMenu()
         {

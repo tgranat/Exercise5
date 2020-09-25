@@ -2,9 +2,9 @@
 
 namespace Exercise5
 {
-    public class GarageHandler : IGarageHandler
+    public class GarageHandler
     {
-        public IGarage CreateGarage(int size) => new Garage<IVehicle>(size);
+        public Garage<IVehicle> CreateGarage(int size) => new Garage<IVehicle>(size);
 
         public IVehicle CreateCar(string regNumber, string color, int wheels, FuelType fuel) =>
             new Car(regNumber, color, wheels, fuel);

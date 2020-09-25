@@ -7,34 +7,36 @@ namespace Exercise5
 {
     // Stores a generic collection of type Vehicle or its subclasses.
 
-    public class Garage<T> : IGarage, IEnumerable where T : IVehicle
+    public class Garage<T> : IEnumerable<T> where T : IVehicle
     {
-        private IVehicle[] garage;
+        private T[] garage; 
  
         // Create a Garage with a specified number of parking spaces.
         // Empty parking spaces are null
         public Garage(int sizeOfGarage)
         {
-            garage = new IVehicle[sizeOfGarage];
+            garage = new T[sizeOfGarage];
         }
        
         // Resize (ths creates a new array and copies the elements)
         public void Resize(int newSize)
         {
-            Array.Resize<IVehicle>(ref garage, newSize);
+            Array.Resize<T>(ref garage, newSize);
         }
 
         // Declare indexer
-        public IVehicle this[int index] => garage[index];
+        public T this[int index] => garage[index];
 
 
-        public IEnumerator GetEnumerator()
+        public IEnumerator<T> GetEnumerator()
         {
             foreach (var item in garage)
             {
-                yield return item;
+                if (item != null) yield return item;
             }
         }
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         // Return total number of elements in the garage array
         public int Capacity => garage.Length;
@@ -49,7 +51,7 @@ namespace Exercise5
             int spot = GetFreeSpotIndex;
             if (spot < 0) return false;
             if (GetVehicle(vehicle.RegNumber) != null) return false;
-            garage[spot] = vehicle;
+            garage[spot] = (T)vehicle;
             return true;
         }
 
@@ -67,9 +69,9 @@ namespace Exercise5
         // Return false if nothing removed
         public bool RemoveVehicle(string regNumber)
         {
-            int index = Array.FindIndex<IVehicle>(garage, v => v?.RegNumber == regNumber.ToUpper());
+            int index = Array.FindIndex<T>(garage, v => v?.RegNumber == regNumber.ToUpper());
             if (index < 0) return false;
-            garage[index] = null;
+            garage[index] = default;
             return true;
         }
 
@@ -89,7 +91,7 @@ namespace Exercise5
         }
 
         // List Vehicle with certain type, color and number of wheels
-        public List<IVehicle> GetVehicles(VehicleType type, string color, int wheels)
+        public List<T> GetVehicles(VehicleType type, string color, int wheels)
         {
             var result = garage
                 .Where(v => v?.Type == type)
@@ -100,7 +102,7 @@ namespace Exercise5
         }
 
         // List Vehicle with certain color and number of wheels
-        public List<IVehicle> GetVehicles(string color, int wheels)
+        public List<T> GetVehicles(string color, int wheels)
         {
             var result = garage
                 .Where(v => v?.Color == color.ToUpper())
@@ -111,7 +113,7 @@ namespace Exercise5
 
   
         // List vehicles of certain color
-        public List<IVehicle> GetVehicles(string color)
+        public List<T> GetVehicles(string color)
         {
             var result = garage
                 .Where(v => v?.Color == color.ToUpper())
@@ -119,7 +121,7 @@ namespace Exercise5
             return result;
         }
         // List vehicles of certain type
-        public List<IVehicle> GetVehicles(VehicleType type)
+        public List<T> GetVehicles(VehicleType type)
         {
             var result = garage
                 .Where(v => v?.Type == type)
